@@ -1,0 +1,117 @@
+/* _projects.css */
+
+.projects-section {
+  width: 100%;
+  position: relative;
+}
+
+.projects-sticky-container {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  perspective: 1000px;
+}
+
+.project-card {
+  transition: transform 0.1s linear;
+  will-change: transform;
+  flex-shrink: 0;
+}
+
+.project-card-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 3rem;
+  background-color: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transition: all 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.5rem;
+}
+
+.project-card:hover .project-card-inner {
+  transform: scale(1.03);
+}
+
+.project-image-wrapper {
+  width: 70%;
+  aspect-ratio: 1;
+}
+
+.project-image-container {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 2rem;
+}
+
+.project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.7s ease;
+}
+
+.project-card:hover .project-image {
+  transform: scale(1.1);
+}
+
+.project-content {
+  width: 100%;
+  padding: 1rem;
+}
+
+.project-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+}
+
+.section-title {
+  font-family: 'Arial', sans-serif;
+  padding-top: 50px;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .project-title {
+    font-size: 1.875rem;
+  }
+  
+  .project-card-inner {
+    padding: 2.5rem;
+  }
+}
+
+/* Hide scrollbar */
+.projects-sticky-container::-webkit-scrollbar {
+  display: none;
+}
+
+.projects-sticky-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Animation curves for entry/exit */
+@keyframes card-float {
+  0%, 100% {
+    transform: translateY(100px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+}
+
+/* Assurer que le scroll est fluide */
+.projects-section, .projects-section * {
+  scroll-behavior: auto !important;
+}

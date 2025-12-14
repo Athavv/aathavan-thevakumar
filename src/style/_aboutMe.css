@@ -133,3 +133,110 @@
   border-radius: 50%;
   box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
 }
+
+/* --- CSS EXISTANT (Garde ton code précédent) --- */
+/* .about-container, .about-col, etc. */
+
+
+/* --- CSS DE LA TIMELINE (STYLE ORIGINAL RESTAURÉ) --- */
+
+.timeline-section {
+  width: 100%;
+  padding-top: 40px;
+}
+.parcours {
+  padding-bottom: 15px;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 40px; /* Espace pour la ligne et les points */
+  border-left: 2px solid #555; /* La ligne verticale grise */
+  display: flex;
+  flex-direction: column;
+  gap: 50px; /* Espace entre chaque école */
+  
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  justify-content: space-between; /* Sépare le texte (gauche) et la date (droite) */
+  align-items: flex-start;
+  width: 100%;
+  
+}
+
+/* Les points sur la ligne */
+.timeline-dot {
+  position: absolute;
+  left: -49px; /* Ajustement pour centrer le point sur la ligne */
+  top: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: white;
+  border: 4px solid #000; /* Crée un petit effet de séparation avec la ligne */
+  box-shadow: 0 0 0 2px white; /* Contour blanc fin */
+}
+
+/* Style spécifique pour le point actuel (le premier) */
+.timeline-dot.current {
+  background-color: #000; /* Fond noir */
+  border: 3px solid white; /* Gros contour blanc */
+  box-shadow: none;
+  width: 18px;
+  height: 18px;
+  left: -50px;
+}
+
+.timeline-content {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+}
+
+.school {
+  color: white;
+  font-weight: 800;
+  font-size: 1.25rem; /* ~20px */
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  letter-spacing: 0.5px;
+}
+
+.degree {
+  color: #d1d5db; /* Gris clair */
+  font-size: 1rem;
+}
+
+.timeline-date {
+  color: #9ca3af; /* Gris un peu plus foncé pour la date */
+  font-style: italic;
+  font-size: 0.95rem;
+  white-space: nowrap; /* Empêche la date de passer à la ligne */
+  text-align: right;
+}
+
+/* --- RESPONSIVE TIMELINE --- */
+/* Sur mobile, les dates passent en dessous pour que ça reste lisible */
+@media screen and (max-width: 768px) {
+  .timeline-item {
+    flex-direction: column; 
+    align-items: flex-start;
+  }
+  
+  .timeline-date {
+    margin-top: 5px;
+    text-align: left;
+    font-size: 0.85rem;
+  }
+
+  .school {
+    font-size: 1.1rem;
+  }
+  
+  .timeline-content {
+    max-width: 100%;
+  }
+}
