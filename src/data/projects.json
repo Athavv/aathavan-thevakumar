@@ -1,0 +1,173 @@
+{
+  "projects": [
+    {
+      "slug": "easy2drive",
+      "title": "Easy2Drive",
+      "shortDescription": "Plateforme de suivi des notes pour élèves d'auto-école.",
+      "fullDescription": "Easy2Drive est une application web développée pour permettre aux élèves d'auto-école de consulter leurs notes et leur progression en ligne. Le projet repose sur une architecture front-end / back-end avec Angular pour l'interface utilisateur et une API développée en PHP reliée à une base de données MySQL. L'objectif principal était de proposer une interface claire, moderne et accessible, facilitant la communication entre l'auto-école et ses élèves.",
+      "mainImage": "/images/easy2drive/main.png",
+      "gallery": [
+        "/images/easy2drive/screen1.png",
+        "/images/easy2drive/screen2.png",
+        "/images/easy2drive/screen3.png"
+      ],
+      "github": "https://github.com/Athavv/easy2drive",
+      "stacks": [
+        {
+          "name": "Angular",
+          "logo": "/logos/angular.svg"
+        },
+        {
+          "name": "PHP",
+          "logo": "/logos/php.svg"
+        },
+        {
+          "name": "MySQL",
+          "logo": "/logos/mysql.svg"
+        },
+        {
+          "name": "Bootstrap",
+          "logo": "/logos/bootstrap.svg"
+        }
+      ]
+    },
+    {
+      "slug": "pestify",
+      "title": "Pestify",
+      "shortDescription": "Site de datavisualisation sur le biocontrôle agricole.",
+      "fullDescription": "Pestify est un projet de datavisualisation réalisé dans le cadre de la SAE 303. Le site met en avant des données liées au biocontrôle agricole, une alternative écologique aux pesticides conventionnels. Le travail a consisté à analyser un large jeu de données, à en extraire des informations pertinentes, puis à les restituer sous forme de graphiques interactifs et d'une narration visuelle claire.",
+      "mainImage": "/images/pestify/main.png",
+      "gallery": [
+        "/images/pestify/screen1.png",
+        "/images/pestify/screen2.png"
+      ],
+      "github": "https://github.com/Athavv/pestify",
+      "stacks": [
+        {
+          "name": "HTML",
+          "logo": "/logos/html.svg"
+        },
+        {
+          "name": "CSS",
+          "logo": "/logos/css.svg"
+        },
+        {
+          "name": "JavaScript",
+          "logo": "/logos/javascript.svg"
+        },
+                {
+          "name": "Bootstrap",
+          "logo": "/logos/bootstrap.svg"
+        },
+        {
+          "name": "ChartJS",
+          "logo": "/logos/chartjs.svg"
+        }
+      ]
+    },
+    {
+      "slug": "ananote",
+      "title": "Ananote",
+      "shortDescription": "Application de gestion scolaire avec rôles multiples.",
+      "fullDescription": "Ananote est une application web de gestion d'école développée en PHP et MySQL. Elle propose des interfaces distinctes pour les étudiants, les professeurs et les administrateurs. Les étudiants peuvent consulter leurs notes, les professeurs peuvent les saisir, et les administrateurs gèrent l'ensemble du système. Une attention particulière a été portée à l'ergonomie et à la clarté des interfaces.",
+      "mainImage": "/images/ananote/main.png",
+      "gallery": [
+        "/images/ananote/screen1.png",
+        "/images/ananote/screen2.png",
+        "/images/ananote/screen3.png",
+        "/images/ananote/screen4.png"
+      ],
+      "github": "https://github.com/Athavv/ananote",
+      "stacks": [
+        {
+          "name": "PHP",
+          "logo": "/logos/php.svg"
+        },
+        {
+          "name": "MySQL",
+          "logo": "/logos/mysql.svg"
+        },
+        {
+          "name": "Bootstrap",
+          "logo": "/logos/bootstrap.svg"
+        },
+        {
+          "name": "JavaScript",
+          "logo": "/logos/javascript.svg"
+        }
+      ]
+    },
+    {
+      "slug": "acf2l-refonte",
+      "title": "Refonte ACF2L",
+      "shortDescription": "Modernisation du site web d'un aéroclub.",
+      "fullDescription": "Ce projet consistait en la refonte complète du site web d'un aéroclub. Après une phase de conception sur Figma, le site a été développé avec Bootstrap afin d'améliorer l'ergonomie, l'accessibilité et l'aspect visuel. Le résultat est un site moderne, responsive et facilement consultable, hébergé sur Vercel.",
+      "mainImage": "/images/acf2l/main.png",
+      "gallery": [
+        "/images/acf2l/screen1.png",
+        "/images/acf2l/screen2.png"
+      ],
+      "github": null,
+      "stacks": [
+        {
+          "name": "Bootstrap",
+          "logo": "/logos/bootstrap.svg"
+        },
+        {
+          "name": "Figma",
+          "logo": "/logos/figma.svg"
+        }
+      ]
+    },
+    {
+      "slug": "muyal",
+      "title": "Muyal",
+      "shortDescription": "Site WordPress dédié aux lapins et à leur bien-être.",
+      "fullDescription": "Muyal est un site WordPress conçu autour de l'univers des lapins. Il permet aux utilisateurs de découvrir différentes races, les accessoires nécessaires à leur bien-être ainsi que des informations utiles pour faciliter l'adoption. Ce projet met en avant mes compétences en intégration WordPress et en gestion de contenu.",
+      "mainImage": "/images/muyal/main.png",
+      "gallery": [
+        "/images/muyal/screen1.png"
+      ],
+      "github": null,
+      "stacks": [
+        {
+          "name": "WordPress",
+          "logo": "/logos/wordpress.svg"
+        }
+      ]
+    },
+    {
+      "slug": "infochoko",
+      "title": "InfoChoko",
+      "shortDescription": "Webdocumentaire immersif sur le Salon du Chocolat.",
+      "fullDescription": "InfoChoko est un webdocumentaire réalisé autour du Salon du Chocolat. Le projet combine vidéos, photographies, interviews et enregistrements audio afin de proposer une expérience immersive. J'ai participé à la captation des contenus ainsi qu'à la conception et au développement du site web, mêlant storytelling et design numérique.",
+      "mainImage": "/images/infochoko/main.png",
+      "gallery": [
+        "/images/infochoko/screen1.png",
+        "/images/infochoko/screen2.png",
+        "/images/infochoko/screen3.png",
+        "/images/infochoko/screen4.png",
+        "/images/infochoko/screen5.png"
+      ],
+      "github": "https://github.com/Athavv/infochoko",
+      "stacks": [
+        {
+          "name": "HTML",
+          "logo": "/logos/html.svg"
+        },
+        {
+          "name": "CSS",
+          "logo": "/logos/css.svg"
+        },
+        {
+          "name": "Bootstrap",
+          "logo": "/logos/bootstrap.svg"
+        },
+        {
+          "name": "JavaScript",
+          "logo": "/logos/javascript.svg"
+        }
+      ]
+    }
+  ]
+}

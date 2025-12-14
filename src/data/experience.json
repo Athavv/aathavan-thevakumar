@@ -1,0 +1,41 @@
+{
+  "experiences": [
+    {
+      "id": 1,
+      "company": "Xelians",
+      "logo": "/logos/xelians.png",
+      "positions": [
+        {
+          "title": "Alternance",
+          "period": "Septembre 2025 - Septembre 2026",
+          "description": "Automatisation, résolution de tickets backend, développement et maintenance d'applications dans un environnement agile."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "company": "Xelians",
+      "logo": "/logos/xelians.png",
+      "positions": [
+        {
+          "title": "Stage",
+          "period": "Avril - Juin 2025",
+          "description": "Participation au développement de X-AM, plateforme d'archivage pour les acteurs publics. Correction de bugs, refonte d'interfaces Angular, automatisation de tests avec Playwright et contribution à des composants partagés dans un environnement agile."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "company": "EM INAM",
+      "logo": "/logos/em-inam.png",
+      "positions": [
+        {
+          "title": "Formation",
+          "period": "Juillet - Août 2024",
+          "description": "Renforcement des bases en JavaScript : manipulation du DOM, gestion des événements, structuration du code et bonnes pratiques de développement."
+        }
+      ]
+    }
+  ]
+}
+

@@ -1,0 +1,384 @@
+/* _experience.css */
+
+.experience-layout {
+  display: flex;
+  gap: 0;
+  background: linear-gradient(135deg, #1a1f35 0%, #252b42 100%);
+  border-radius: 24px;
+  overflow: hidden;
+  min-height: 500px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Liste des entreprises - Colonne gauche */
+.company-list {
+  flex: 0 0 350px;
+  background: linear-gradient(to bottom, #1e2337 0%, #2a2f45 100%);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.company-item {
+  display: flex;
+  align-items: center;
+  padding: 28px 32px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+  gap: 20px;
+  color: #ffffff;
+}
+
+.company-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.company-item.active {
+  background: rgba(14, 165, 233, 0.1);
+  border-left-color: #0ea5e9;
+  box-shadow: inset 4px 0 0 0 #0ea5e9;
+}
+
+.company-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.company-name {
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Détails de l'expérience - Colonne droite */
+.experience-details {
+  flex: 1;
+  padding: 48px;
+  background: linear-gradient(to bottom, #0f1423 0%, #1a1f35 100%);
+}
+
+.details-content {
+  display: flex;
+  gap: 48px;
+}
+
+.details-text {
+  flex: 1;
+}
+
+.company-title {
+  font-size: 2.25rem;
+  color: #ffffff;
+  font-weight: 700;
+  margin-bottom: 40px;
+  letter-spacing: 0.02em;
+}
+
+/* Timeline des positions */
+.positions-timeline {
+  margin: 40px 0;
+  padding-left: 0;
+  border-left: 2px solid #0ea5e9;
+}
+
+.position-item {
+  position: relative;
+  padding-left: 32px;
+  margin-bottom: 36px;
+}
+
+.position-dot {
+  position: absolute;
+  left: -7px;
+  top: 12px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #0ea5e9;
+  background: #0a0e27;
+  transition: all 0.3s ease;
+}
+
+.position-dot.active {
+  background: #0ea5e9;
+  box-shadow: 0 0 12px rgba(14, 165, 233, 0.6);
+}
+
+.position-title {
+  color: #0ea5e9;
+  font-size: 1.375rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: 0.02em;
+}
+
+.position-period {
+  color: #60a5fa;
+  font-size: 1.0625rem;
+  font-weight: 400;
+}
+
+/* Description */
+.position-description {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  margin-top: 32px;
+}
+
+.position-description p {
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Image */
+.details-image {
+  flex: 0 0 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.image-wrapper {
+  width: 300px;
+  height: 380px;
+  border-radius: 20px;
+  overflow: hidden;
+  transform: rotate(6deg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.image-wrapper:hover {
+  transform: rotate(6deg) scale(1.05);
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.85);
+  color: #ffffff;
+  padding: 14px 16px;
+  text-align: center;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+}
+
+/* Responsive Tablet */
+@media screen and (max-width: 1280px) {
+  .company-list {
+    flex: 0 0 280px;
+  }
+
+  .company-item {
+    padding: 24px 24px;
+    gap: 16px;
+  }
+
+  .company-logo {
+    width: 48px;
+    height: 48px;
+  }
+
+  .company-name {
+    font-size: 1.125rem;
+  }
+
+  .experience-details {
+    padding: 40px;
+  }
+
+  .details-content {
+    gap: 32px;
+  }
+
+  .details-image {
+    flex: 0 0 280px;
+  }
+
+  .image-wrapper {
+    width: 260px;
+    height: 340px;
+  }
+}
+
+/* Responsive Mobile Large */
+@media screen and (max-width: 1024px) {
+  .experience-layout {
+    flex-direction: column;
+  }
+
+  .company-list {
+    flex: none;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  }
+
+  .company-list::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .company-list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .company-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+  }
+
+  .company-item {
+    flex-shrink: 0;
+    border-left: none;
+    border-bottom: 4px solid transparent;
+    min-width: 220px;
+    padding: 24px 28px;
+  }
+
+  .company-item.active {
+    border-left: none;
+    border-bottom-color: #0ea5e9;
+    box-shadow: inset 0 -4px 0 0 #0ea5e9;
+  }
+
+  .experience-details {
+    padding: 32px;
+  }
+
+  .details-content {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .details-image {
+    flex: none;
+    align-self: center;
+  }
+}
+
+/* Responsive Mobile */
+@media screen and (max-width: 768px) {
+  .company-item {
+    min-width: 180px;
+    padding: 20px 24px;
+  }
+
+  .company-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .company-name {
+    font-size: 1rem;
+  }
+
+  .experience-details {
+    padding: 24px 20px;
+  }
+
+  .company-title {
+    font-size: 1.875rem;
+    margin-bottom: 32px;
+  }
+
+  .positions-timeline {
+    margin: 32px 0;
+  }
+
+  .position-item {
+    margin-bottom: 28px;
+  }
+
+  .position-title {
+    font-size: 1.25rem;
+  }
+
+  .position-period {
+    font-size: 1rem;
+  }
+
+  .position-description {
+    font-size: 1rem;
+    margin-top: 24px;
+  }
+
+  .image-wrapper {
+    width: 240px;
+    height: 300px;
+  }
+
+  .image-caption {
+    padding: 12px;
+    font-size: 0.875rem;
+  }
+}
+
+/* Responsive Mobile Small */
+@media screen and (max-width: 640px) {
+  .experience-layout {
+    border-radius: 16px;
+  }
+
+  .company-item {
+    min-width: 160px;
+    padding: 18px 20px;
+    gap: 12px;
+  }
+
+  .company-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .company-name {
+    font-size: 0.9375rem;
+  }
+
+  .experience-details {
+    padding: 20px 16px;
+  }
+
+  .company-title {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+  }
+
+  .position-title {
+    font-size: 1.125rem;
+  }
+
+  .position-period {
+    font-size: 0.9375rem;
+  }
+
+  .position-description {
+    font-size: 0.9375rem;
+  }
+
+  .image-wrapper {
+    width: 200px;
+    height: 260px;
+    border-radius: 16px;
+  }
+}

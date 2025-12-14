@@ -1,0 +1,126 @@
+/* Styles Hero */
+
+.hero-section {
+  min-height: 90vh;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero-container {
+  min-height: calc(100vh - 400px);
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 200px clamp(20px, 5vw, 60px);
+}
+
+/* Wrapper principal pour centrer le contenu */
+.hero-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Wrapper pour empiler les titres */
+.hero-title-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.hero-title {
+  font-size: 6rem;
+  line-height: 1.1;
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+}
+
+/* Titre ombre en arrière */
+.hero-title-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.15;
+  transform: translate(8px, 8px);
+  z-index: 1;
+  color: #ffffff;
+}
+
+/* Titre principal avec animation spatiale */
+.hero-title-main {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(255,255,255,0.4);
+}
+
+/* Subtitle avec effet loop */
+.hero-subtitle {
+  position: relative;
+  align-self: flex-end;
+  margin-right: 0;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: right;
+}
+
+.letter {
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 967px) {
+  .hero-title {
+    font-size: 5rem;
+  }
+  .hero-subtitle {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 757px) {
+  .hero-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 100px clamp(30px, 6vw, 60px);
+  }
+  .hero-content-wrapper {
+    align-items: center;
+    text-align: center;
+  }
+  .hero-title {
+    margin-bottom: 40px;
+    font-size: 4rem;
+  }
+  .hero-subtitle {
+    margin-right: 0;
+    font-size: 1.25rem;
+  }
+}
+
+@media screen and (max-width: 537px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+}

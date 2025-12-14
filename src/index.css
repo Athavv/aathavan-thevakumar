@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.font-title { font-family: 'Fredoka One', cursive; }
+.font-body { font-family: 'Inter', sans-serif; }
+.font-display { font-family: 'Space Grotesk', sans-serif; }
+
+/* SOLUTION: Désactiver scroll-behavior smooth globalement */
+/* OU ajouter ceci pour le désactiver seulement dans Projects */
+.projects-section, .projects-section * {
+  scroll-behavior: auto !important;
+}
