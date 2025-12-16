@@ -20,21 +20,11 @@ function Header() {
 
   return (
     <header className={`header-pill ${isVisible ? 'header-visible' : 'header-hidden'}`}>
-      <a href="#hero" className="header-link">
-        Home
-      </a>
-      <a href="#projects" className="header-link">
-        Project
-      </a>
-      <a href="#about" className="header-link">
-        About me
-      </a>
-            <a href="#experience" className="header-link">
-        Experiences
-      </a>
-      <a href="#contact" className="header-link">
-        Contact
-      </a>
+      <a href="#hero" className="header-link">Home</a>
+      <a href="#projects" className="header-link">Project</a>
+      <a href="#about" className="header-link">About me</a>
+      <a href="#experience" className="header-link">Experiences</a>
+      <a href="#contact" className="header-link">Contact</a>
     </header>
   )
 }

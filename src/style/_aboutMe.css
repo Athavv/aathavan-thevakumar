@@ -1,32 +1,39 @@
-/* --- MISE EN PAGE DU CONTENEUR (LAYOUT) --- */
+.about-me-section {
+  position: relative;
+  width: 100%;
+  padding: 3rem clamp(20px, 5vw, 60px);
+  font-family: 'Arial', sans-serif;
+}
 
 .about-container {
-  display: flex; /* Active Flexbox */
-  flex-direction: row; /* Force l'alignement GAUCHE / DROITE */
+  display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 60px; /* Espace entre l'image et le texte */
+  gap: 60px;
   width: 100%;
+  margin-top: 50px;
+  margin-bottom: 100px;
 }
 
 .about-col {
-  width: 50%; /* Chaque colonne prend la moitié */
+  width: 50%;
   display: flex;
   flex-direction: column;
 }
 
-/* Ajustement spécifique pour l'image */
 .image-col {
-  justify-content: flex-start; 
-  align-items: flex-start; /* Colle l'image à gauche */
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .photo-wrapper {
   width: 100%;
   max-width: 450px;
-  aspect-ratio: 1/1; /* Force le carré */
+  height: 600px;
+  aspect-ratio: 1/1;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
@@ -38,42 +45,110 @@
 }
 
 .text-desc {
-  text-align: left; /* Force le texte à gauche */
+  color: #ffffff;
+  font-size: 1.125rem;
+  line-height: 1.75;
+  text-align: left;
+}
+
+.timeline-section {
+  width: 100%;
+  padding-top: 40px;
+  margin-bottom: 3rem;
+}
+
+.parcours {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  padding-bottom: 15px;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 40px;
+  border-left: 2px solid #555;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -49px;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: white;
+  border: 4px solid #000;
+  box-shadow: 0 0 0 2px white;
+}
+
+.timeline-dot.current {
+  background-color: #000;
+  border: 3px solid white;
+  box-shadow: none;
+  width: 18px;
+  height: 18px;
+  left: -50px;
+}
+
+.timeline-content {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+}
+
+.school {
+  color: white;
+  font-weight: 800;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  letter-spacing: 0.5px;
+}
+
+.location {
+  color: #9ca3af;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.degree {
+  color: #d1d5db;
+  font-size: 1rem;
+}
+
+.mention {
+  color: #9ca3af;
+  font-style: italic;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.timeline-date {
+  color: #9ca3af;
+  font-style: italic;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  text-align: right;
 }
 
 .btn-container {
   display: flex;
-  justify-content: flex-start; /* Bouton à gauche */
-  margin-top: 40px; /* Baisse le bouton comme demandé */
+  justify-content: flex-start;
+  margin-top: 40px;
   padding-bottom: 20px;
-}
-
-/* --- VERSION MOBILE (RESPONSIVE) --- */
-/* Si l'écran est plus petit que 900px, on passe en colonne */
-@media screen and (max-width: 900px) {
-  .about-container {
-    flex-direction: column; /* Empile les éléments */
-    align-items: center; /* Centre tout */
-    gap: 40px;
-  }
-
-  .about-col {
-    width: 100%;
-    align-items: center;
-  }
-
-  .text-desc {
-    text-align: center; 
-  }
-
-  .image-col {
-    justify-content: center;
-    align-items: center;
-  }
-
-  .btn-container {
-    justify-content: center;
-  }
 }
 
 @keyframes moon-pulse {
@@ -122,6 +197,7 @@
   border-radius: 50%;
   box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
 }
+
 .moon-btn::after {
   content: '';
   position: absolute;
@@ -134,109 +210,34 @@
   box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
 }
 
-/* --- CSS EXISTANT (Garde ton code précédent) --- */
-/* .about-container, .about-col, etc. */
-
-
-/* --- CSS DE LA TIMELINE (STYLE ORIGINAL RESTAURÉ) --- */
-
-.timeline-section {
-  width: 100%;
-  padding-top: 40px;
-}
-.parcours {
-  padding-bottom: 15px;
-}
-
-.timeline {
-  position: relative;
-  padding-left: 40px; /* Espace pour la ligne et les points */
-  border-left: 2px solid #555; /* La ligne verticale grise */
-  display: flex;
-  flex-direction: column;
-  gap: 50px; /* Espace entre chaque école */
-  
+@media screen and (max-width: 900px) {
+  .about-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+  .about-col {
+    width: 100%;
+    align-items: center;
+  }
+  .text-desc { text-align: center; }
+  .image-col {
+    justify-content: center;
+    align-items: center;
+  }
+  .btn-container { justify-content: center; }
 }
 
-.timeline-item {
-  position: relative;
-  display: flex;
-  justify-content: space-between; /* Sépare le texte (gauche) et la date (droite) */
-  align-items: flex-start;
-  width: 100%;
-  
-}
-
-/* Les points sur la ligne */
-.timeline-dot {
-  position: absolute;
-  left: -49px; /* Ajustement pour centrer le point sur la ligne */
-  top: 0;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background-color: white;
-  border: 4px solid #000; /* Crée un petit effet de séparation avec la ligne */
-  box-shadow: 0 0 0 2px white; /* Contour blanc fin */
-}
-
-/* Style spécifique pour le point actuel (le premier) */
-.timeline-dot.current {
-  background-color: #000; /* Fond noir */
-  border: 3px solid white; /* Gros contour blanc */
-  box-shadow: none;
-  width: 18px;
-  height: 18px;
-  left: -50px;
-}
-
-.timeline-content {
-  display: flex;
-  flex-direction: column;
-  max-width: 70%;
-}
-
-.school {
-  color: white;
-  font-weight: 800;
-  font-size: 1.25rem; /* ~20px */
-  text-transform: uppercase;
-  margin-bottom: 5px;
-  letter-spacing: 0.5px;
-}
-
-.degree {
-  color: #d1d5db; /* Gris clair */
-  font-size: 1rem;
-}
-
-.timeline-date {
-  color: #9ca3af; /* Gris un peu plus foncé pour la date */
-  font-style: italic;
-  font-size: 0.95rem;
-  white-space: nowrap; /* Empêche la date de passer à la ligne */
-  text-align: right;
-}
-
-/* --- RESPONSIVE TIMELINE --- */
-/* Sur mobile, les dates passent en dessous pour que ça reste lisible */
 @media screen and (max-width: 768px) {
   .timeline-item {
-    flex-direction: column; 
+    flex-direction: column;
     align-items: flex-start;
   }
-  
   .timeline-date {
     margin-top: 5px;
     text-align: left;
     font-size: 0.85rem;
   }
-
-  .school {
-    font-size: 1.1rem;
-  }
-  
-  .timeline-content {
-    max-width: 100%;
-  }
+  .school { font-size: 1.1rem; }
+  .timeline-content { max-width: 100%; }
 }

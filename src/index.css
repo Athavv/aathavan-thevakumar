@@ -17,6 +17,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
+  color: #ffffff;
 }
 
 #root {
@@ -28,8 +29,19 @@ body {
 .font-body { font-family: 'Inter', sans-serif; }
 .font-display { font-family: 'Space Grotesk', sans-serif; }
 
-/* SOLUTION: Désactiver scroll-behavior smooth globalement */
-/* OU ajouter ceci pour le désactiver seulement dans Projects */
-.projects-section, .projects-section * {
-  scroll-behavior: auto !important;
+.section-title {
+  font-size: 4rem;
+  line-height: 1.2;
+  font-family: 'Fredoka One', cursive;
+  color: #ffffff;
+  margin-bottom: 4rem;
+  text-align: left;
+}
+
+@media screen and (max-width: 768px) {
+  .section-title { font-size: 3rem; }
+}
+
+@media screen and (max-width: 640px) {
+  .section-title { font-size: 2.5rem; }
 }

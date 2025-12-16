@@ -1,0 +1,6 @@
+.star-field {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  background: linear-gradient(to bottom, #0a0e27 0%, #0f0f1e 100%);
+}

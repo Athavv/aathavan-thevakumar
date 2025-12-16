@@ -92,7 +92,7 @@ function ProjectDetail() {
           <div className="project-intro">
             {/* Titre à gauche */}
             <div className="title-section">
-              <h1 className="project-title">{project.title}</h1>
+              <h1 className="projectDetails-title">{project.title}</h1>
             </div>
 
             {/* Stacks et infos à droite */}

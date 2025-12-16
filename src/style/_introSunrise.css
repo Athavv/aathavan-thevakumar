@@ -1,0 +1,86 @@
+/* IntroSunrise.css */
+
+.intro-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* Au-dessus de tout */
+  overflow: hidden;
+  isolation: isolate;
+  /* Performance pour l'animation de découpe */
+  will-change: clip-path; 
+}
+
+/* Texte : Z-INDEX 1 (Derrière le soleil) */
+.intro-text {
+  position: absolute;
+  color: white;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-align: center;
+  font-size: 120px;
+  pointer-events: none;
+  z-index: 1; 
+  width: 100%;
+}
+
+.intro-text .letter {
+  display: inline-block;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* Soleil : Z-INDEX 100 (Devant le texte) */
+.intro-sun {
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff4a3, #ffdd55, #ff9900);
+  box-shadow: 0 0 150px 80px rgba(255, 180, 50, 0.6);
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 100;
+  will-change: transform;
+}
+
+/* CURSEUR (Activé via JS à la fin) */
+body.custom-cursor-active {
+  cursor: none !important;
+}
+
+.sun-cursor {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  pointer-events: none;
+  z-index: 99999;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  will-change: left, top;
+}
+
+.sun-cursor-visual {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff4a3, #ffdd55, #ff9900);
+  box-shadow: 0 0 20px 10px rgba(255, 180, 50, 0.4);
+}
+
+.trail-ray {
+  position: fixed;
+  width: 60px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(255, 244, 163, 0) 0%, rgba(255, 221, 85, 0.9) 50%, rgba(255, 244, 163, 0) 100%);
+  box-shadow: 0 0 8px rgba(255, 221, 85, 1), 0 0 15px rgba(255, 180, 50, 0.8);
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+}

@@ -1,35 +1,21 @@
-/* Header en forme de pilule - Cohérent avec le gradient du fond */
 .header-pill {
   position: fixed;
   z-index: 50;
   top: 24px;
   left: 50%;
   transform: translateX(-50%);
-  
-  /* Largeur automatique pour la forme pilule */
   width: auto;
   max-width: 90%;
-  
-  /* Forme de pilule */
   border-radius: 9999px;
-  
-  /* Glassmorphism avec teinte bleue cohérente */
   backdrop-filter: blur(12px);
-  background: linear-gradient(135deg, 
-    rgba(10, 14, 39, 0.8) 0%, 
-    rgba(15, 15, 30, 0.8) 100%
-  );
+  background: linear-gradient(135deg, rgba(10, 14, 39, 0.8) 0%, rgba(15, 15, 30, 0.8) 100%);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 32px 0 rgba(10, 14, 39, 0.6);
-  
-  /* Layout */
   padding: 16px 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 48px;
-  
-  /* Transitions */
+  gap: 60px;
   transition: all 0.3s ease-in-out;
   opacity: 1;
 }
@@ -56,15 +42,12 @@
   color: #d1d5db;
 }
 
-/* Responsive */
 @media screen and (max-width: 768px) {
   .header-pill {
     gap: 24px;
     padding: 12px 24px;
   }
-  .header-link {
-    font-size: 14px;
-  }
+  .header-link { font-size: 14px; }
 }
 
 @media screen and (max-width: 640px) {
@@ -73,7 +56,5 @@
     padding: 10px 20px;
     top: 16px;
   }
-  .header-link {
-    font-size: 12px;
-  }
+  .header-link { font-size: 12px; }
 }

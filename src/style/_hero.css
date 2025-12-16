@@ -1,5 +1,3 @@
-/* Styles Hero */
-
 .hero-section {
   min-height: 90vh;
   position: relative;
@@ -18,7 +16,6 @@
   padding: 200px clamp(20px, 5vw, 60px);
 }
 
-/* Wrapper principal pour centrer le contenu */
 .hero-content-wrapper {
   display: flex;
   flex-direction: column;
@@ -28,7 +25,6 @@
   width: 100%;
 }
 
-/* Wrapper pour empiler les titres */
 .hero-title-wrapper {
   position: relative;
   display: inline-block;
@@ -41,7 +37,6 @@
   font-weight: 900;
 }
 
-/* Titre ombre en arrière */
 .hero-title-shadow {
   position: absolute;
   top: 0;
@@ -52,7 +47,6 @@
   color: #ffffff;
 }
 
-/* Titre principal avec animation spatiale */
 .hero-title-main {
   position: relative;
   z-index: 2;
@@ -60,7 +54,6 @@
   text-shadow: 0 0 20px rgba(255,255,255,0.4);
 }
 
-/* Subtitle avec effet loop */
 .hero-subtitle {
   position: relative;
   align-self: flex-end;
@@ -79,12 +72,8 @@
 }
 
 @media screen and (max-width: 967px) {
-  .hero-title {
-    font-size: 5rem;
-  }
-  .hero-subtitle {
-    font-size: 1.5rem;
-  }
+  .hero-title { font-size: 5rem; }
+  .hero-subtitle { font-size: 1.5rem; }
 }
 
 @media screen and (max-width: 757px) {
@@ -108,19 +97,11 @@
 }
 
 @media screen and (max-width: 537px) {
-  .hero-title {
-    font-size: 3rem;
-  }
-  .hero-subtitle {
-    font-size: 1rem;
-  }
+  .hero-title { font-size: 3rem; }
+  .hero-subtitle { font-size: 1rem; }
 }
 
 @media screen and (max-width: 450px) {
-  .hero-title {
-    font-size: 2.5rem;
-  }
-  .hero-subtitle {
-    font-size: 0.9rem;
-  }
+  .hero-title { font-size: 2.5rem; }
+  .hero-subtitle { font-size: 0.9rem; }
 }
