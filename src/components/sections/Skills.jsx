@@ -44,194 +44,194 @@ function Skills() {
   }, [])
 
   useEffect(() => {
-    // Radius pour l'orbite - juste un peu plus grand que la planète pour éviter le chevauchement
-    const radius = 130
+    // Radius pour l'orbite - bien centré sur la planète avec un espacement équilibré
+    // Planète: 200px (rayon = 100px), Orbite: 145px pour un espacement de ~45px
+    const radius = 145
     const planetRadius = 100
 
-    // Définir les axes de rotation pour chaque planète
-    // Chaque planète aura un plan d'orbite différent
-    const orbitPlanes = [
-      { normal: { x: 1, y: 1, z: 0 }, rotation: { x: 1, y: 1, z: 0 } }, // Frontend - Plan diagonal haut gauche à bas droite
-      { normal: { x: -1, y: 1, z: 0 }, rotation: { x: -1, y: 1, z: 0 } }, // Backend - Plan diagonal haut droite à bas gauche
-      { normal: { x: 1, y: -1, z: 1 }, rotation: { x: 1, y: -1, z: 1 } }, // Design - Plan diagonal avec profondeur
-      { normal: { x: -1, y: 1, z: 1 }, rotation: { x: -1, y: 1, z: 1 } }, // Tools & DevOps - Plan diagonal avec profondeur
+    // Durées d'animation pour chaque rotation (en secondes)
+    const animationDurations = [30, 35, 28, 32]
+    
+    // Axes de rotation pour chaque planète - chaque planète a un mouvement différent
+    const rotationAxes = [
+      { x: 1, y: 1, z: 0 },    // Frontend - Diagonal (fonctionne bien)
+      { x: -1, y: 1, z: 0 },   // Backend - Diagonal inverse
+      { x: 0, y: 1, z: 1 },    // Design - Vertical avec profondeur
+      { x: 1, y: 0, z: 1 }     // Tools & DevOps - Horizontal avec profondeur
+    ]
+    
+    // Décalages d'angle initiaux pour équilibrer les positions de chaque planète
+    const angleOffsets = [
+      0,      // Frontend - pas de décalage (bien réparti)
+      135,    // Backend - décalage pour favoriser haut-gauche, moins bas-droite
+      90,     // Design - décalage pour favoriser haut-gauche, moins bas-droite
+      -90     // Tools & DevOps - décalage pour favoriser gauche, moins droite
     ]
 
-    // Stocker les informations pour chaque élément
-    const itemData = new Map()
+    // Stocker les timelines GSAP pour pouvoir les nettoyer
+    const timelines = []
 
     for (let i = 0; i < groupedSkills.length; i++) {
       const group = groupedSkills[i]
       const orbitContainer = sectionRef.current?.querySelector(`.orbit-container[data-category="${group.category}"]`)
       const orbitItems = orbitContainer?.querySelectorAll(".orbit-item")
-      const plane = orbitPlanes[i] || orbitPlanes[0]
+      const axis = rotationAxes[i] || rotationAxes[0]
+      const duration = animationDurations[i] || 30
       
       if (orbitItems && orbitItems.length > 0) {
+        // Créer une timeline pour ce groupe
+        const masterTimeline = gsap.timeline({ repeat: -1 })
+        
+        const angleOffset = angleOffsets[i] || 0
+        
         for (let j = 0; j < orbitItems.length; j++) {
           const item = orbitItems[j]
           const skillElement = item.querySelector(".orbit-skill")
-          const angle = (360 / orbitItems.length) * j
+          const angle = (360 / orbitItems.length) * j + angleOffset
           const rad = (angle * Math.PI) / 180
           
-          // Calculer les positions initiales sur le plan d'orbite
-          // On crée un cercle dans le plan défini par le vecteur normal
-          let x, y, z
+          // Calculer les positions initiales sur un cercle perpendiculaire à l'axe de rotation
+          const ax = axis.x
+          const ay = axis.y
+          const az = axis.z
           
-          const nx = plane.normal.x
-          const ny = plane.normal.y
-          const nz = plane.normal.z
+          // Normaliser l'axe
+          const axisLen = Math.sqrt(ax * ax + ay * ay + az * az)
+          if (axisLen === 0) continue
           
-          // Créer deux vecteurs orthogonaux dans le plan
-          // Vecteur 1 : perpendiculaire à (nx, ny, nz) et à (0, 0, 1)
-          let v1x, v1y, v1z
-          if (nz === 0) {
-            // Plan horizontal ou diagonal
-            v1x = -ny
-            v1y = nx
-            v1z = 0
-          } else {
-            v1x = -ny
-            v1y = nx
-            v1z = 0
+          const nax = ax / axisLen
+          const nay = ay / axisLen
+          const naz = az / axisLen
+          
+          // Trouver un vecteur perpendiculaire à l'axe
+          let refX = 0, refY = 0, refZ = 1
+          if (Math.abs(naz) > 0.9) {
+            refX = 1
+            refY = 0
+            refZ = 0
           }
+          
+          // Vecteur perpendiculaire 1
+          const v1x = nay * refZ - naz * refY
+          const v1y = naz * refX - nax * refZ
+          const v1z = nax * refY - nay * refX
           
           // Normaliser v1
           const v1Len = Math.sqrt(v1x * v1x + v1y * v1y + v1z * v1z)
-          if (v1Len > 0) {
-            v1x /= v1Len
-            v1y /= v1Len
-            v1z /= v1Len
-          }
+          if (v1Len === 0) continue
           
-          // Vecteur 2 : produit vectoriel de normal et v1
-          const v2x = ny * v1z - nz * v1y
-          const v2y = nz * v1x - nx * v1z
-          const v2z = nx * v1y - ny * v1x
+          const v1nx = v1x / v1Len
+          const v1ny = v1y / v1Len
+          const v1nz = v1z / v1Len
           
-          // Position sur le cercle dans le plan
-          x = (v1x * Math.cos(rad) + v2x * Math.sin(rad)) * radius
-          y = (v1y * Math.cos(rad) + v2y * Math.sin(rad)) * radius
-          z = (v1z * Math.cos(rad) + v2z * Math.sin(rad)) * radius
+          // Vecteur perpendiculaire 2
+          const v2x = nay * v1nz - naz * v1ny
+          const v2y = naz * v1nx - nax * v1nz
+          const v2z = nax * v1ny - nay * v1nx
           
-          // Stocker les données initiales pour calculer la position z
-          itemData.set(item, { 
-            initialAngle: rad,
-            initialZ: z,
-            plane: plane,
-            radius: radius,
-            skillElement: skillElement,
-            rotationIndex: i
-          })
+          // Normaliser v2
+          const v2Len = Math.sqrt(v2x * v2x + v2y * v2y + v2z * v2z)
+          if (v2Len === 0) continue
           
+          const v2nx = v2x / v2Len
+          const v2ny = v2y / v2Len
+          const v2nz = v2z / v2Len
+          
+          // Position sur le cercle perpendiculaire à l'axe
+          const x = (v1nx * Math.cos(rad) + v2nx * Math.sin(rad)) * radius
+          const y = (v1ny * Math.cos(rad) + v2ny * Math.sin(rad)) * radius
+          const z = (v1nz * Math.cos(rad) + v2nz * Math.sin(rad)) * radius
+          
+          // Position initiale
           gsap.set(item, {
             x: x,
             y: y,
             z: z,
             opacity: 1,
             scale: 1,
+            transformStyle: "preserve-3d",
+            transformOrigin: "center center"
+          })
+          
+          // S'assurer que le skillElement n'a aucune rotation - il restera toujours droit
+          gsap.set(skillElement, {
+            rotationX: 0,
+            rotationY: 0,
+            rotationZ: 0,
             transformStyle: "preserve-3d"
           })
           
-          // La rotation inverse sera gérée par CSS pour une meilleure synchronisation
-          // Les classes CSS seront appliquées automatiquement via les sélecteurs
+          // Créer une fonction pour calculer la position à un angle donné
+          const getPositionAtAngle = (angleRad) => {
+            const cos = Math.cos(angleRad)
+            const sin = Math.sin(angleRad)
+            
+            // Rotation autour de l'axe défini (formule de Rodrigues)
+            const ax = axis.x
+            const ay = axis.y
+            const az = axis.z
+            
+            // Normaliser l'axe
+            const axisLen = Math.sqrt(ax * ax + ay * ay + az * az)
+            const nax = ax / axisLen
+            const nay = ay / axisLen
+            const naz = az / axisLen
+            
+            const c = cos
+            const s = sin
+            const t = 1 - c
+            
+            const newX = (t * nax * nax + c) * x + (t * nax * nay - s * naz) * y + (t * nax * naz + s * nay) * z
+            const newY = (t * nax * nay + s * naz) * x + (t * nay * nay + c) * y + (t * nay * naz - s * nax) * z
+            const newZ = (t * nax * naz - s * nay) * x + (t * nay * naz + s * nax) * y + (t * naz * naz + c) * z
+            
+            return { x: newX, y: newY, z: newZ }
+          }
+          
+          // Créer une animation qui met à jour uniquement la position (pas de rotation)
+          const itemTimeline = gsap.timeline({ repeat: -1 })
+          
+          // Utiliser un objet pour stocker les valeurs
+          const rotationObj = { angle: 0 }
+          
+          itemTimeline.to(rotationObj, {
+            angle: 360,
+            duration: duration,
+            ease: "none",
+            onUpdate: function() {
+              const angleRad = (rotationObj.angle * Math.PI) / 180
+              const pos = getPositionAtAngle(angleRad)
+              
+              // Mettre à jour uniquement la position - pas de rotation sur l'item
+              gsap.set(item, {
+                x: pos.x,
+                y: pos.y,
+                z: pos.z
+              })
+              
+              // Le skillElement reste toujours droit (pas de rotation appliquée)
+              // Il garde sa rotation initiale de 0,0,0
+              
+              // Mettre à jour le z-index
+              const threshold = -planetRadius * 0.2
+              if (pos.z > threshold) {
+                item.style.zIndex = '5'
+              } else {
+                item.style.zIndex = '15'
+              }
+            }
+          })
+          
+          masterTimeline.add(itemTimeline, 0)
         }
+        
+        timelines.push(masterTimeline)
       }
     }
-
-    // Durées d'animation pour chaque rotation (en secondes)
-    const animationDurations = [30, 35, 28, 32]
-    
-    // Axes de rotation pour chaque planète (doit correspondre aux animations CSS)
-    const rotationAxes = [
-      { x: 1, y: 1, z: 0 },    // Frontend - rotate3d(1, 1, 0, ...)
-      { x: -1, y: 1, z: 0 },   // Backend - rotate3d(-1, 1, 0, ...)
-      { x: 1, y: -1, z: 1 },   // Design - rotate3d(1, -1, 1, ...)
-      { x: -1, y: 1, z: 1 }    // Tools & DevOps - rotate3d(-1, 1, 1, ...)
-    ]
-    
-    // Fonction pour mettre à jour le z-index et la rotation inverse
-    const updateZIndexAndRotation = () => {
-      const currentTime = performance.now() / 1000 // Temps en secondes
-      
-      itemData.forEach((data, item) => {
-        const skillElement = data.skillElement
-        if (!skillElement) return
-        
-        // Calculer l'angle de rotation actuel basé sur le temps
-        const duration = animationDurations[data.rotationIndex] || 30
-        const rotationAngleDeg = ((currentTime % duration) / duration) * 360
-        const rotationAngle = rotationAngleDeg * (Math.PI / 180)
-        
-        // Calculer la position z actuelle après rotation
-        const plane = data.plane
-        const nx = plane.normal.x
-        const ny = plane.normal.y
-        const nz = plane.normal.z
-        
-        // Calculer les vecteurs de base du plan (même calcul que pour la position initiale)
-        let v1x, v1y, v1z
-        if (nz === 0) {
-          v1x = -ny
-          v1y = nx
-          v1z = 0
-        } else {
-          v1x = -ny
-          v1y = nx
-          v1z = 0
-        }
-        
-        const v1Len = Math.sqrt(v1x * v1x + v1y * v1y + v1z * v1z)
-        if (v1Len > 0) {
-          v1x /= v1Len
-          v1y /= v1Len
-          v1z /= v1Len
-        }
-        
-        const v2x = ny * v1z - nz * v1y
-        const v2y = nz * v1x - nx * v1z
-        const v2z = nx * v1y - ny * v1x
-        
-        // Position actuelle avec rotation appliquée
-        const currentAngle = data.initialAngle + rotationAngle
-        const currentZ = (v1z * Math.cos(currentAngle) + v2z * Math.sin(currentAngle)) * data.radius
-        
-        // Seuil pour déterminer si l'élément est derrière la planète
-        const threshold = -planetRadius * 0.2
-        
-        // Garder l'opacité à 1 pour des couleurs vives
-        if (currentZ > threshold) {
-          item.style.zIndex = '5'
-          item.style.opacity = '1'
-        } else {
-          item.style.zIndex = '15'
-          item.style.opacity = '1'
-        }
-        
-        // Appliquer la rotation inverse pour que les logos restent COMPLÈTEMENT FIXES et droits
-        // Les logos ne doivent PAS tourner sur eux-mêmes, ils doivent juste suivre l'orbite
-        const axes = rotationAxes[data.rotationIndex] || rotationAxes[0]
-        const inverseAngle = -rotationAngleDeg
-        
-        // Pour rotate3d(x, y, z, angle), on doit appliquer rotate3d(-x, -y, -z, -angle)
-        // Cela annule complètement la rotation du conteneur pour que les logos restent fixes
-        skillElement.style.transform = `rotate3d(${-axes.x}, ${-axes.y}, ${-axes.z}, ${inverseAngle}deg)`
-        skillElement.style.transformOrigin = "center center"
-        skillElement.style.willChange = "transform"
-      })
-    }
-
-    // Mettre à jour le z-index avec requestAnimationFrame
-    let animationFrame
-    const animate = () => {
-      updateZIndexAndRotation()
-      animationFrame = requestAnimationFrame(animate)
-    }
-    animate()
     
     return () => {
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame)
-      }
+      // Nettoyer les timelines
+      timelines.forEach(timeline => timeline.kill())
     }
   }, [groupedSkills])
 
