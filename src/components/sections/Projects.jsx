@@ -6,90 +6,30 @@ import { useWindowSize } from "../../hooks/useWindowSize"
 import { useThrottle } from "../../hooks/useThrottle"
 import { CARD_COLORS } from "../../utils/constants"
 
-const ProjectCard = React.memo(({ 
-  project, 
-  index, 
-  cardSize, 
-  gap, 
-  translateX, 
-  viewportCenter, 
-  viewportWidth,
-  totalProjects 
-}) => {
-  const cardLeftPos = index * (cardSize + gap)
-  const cardLeftInTrack = cardLeftPos + translateX
-  const cardCenterInTrack = cardLeftInTrack + cardSize / 2
-  
-  const distFromCenterPx = cardCenterInTrack - viewportCenter
-  const distFromCenter = distFromCenterPx / (viewportWidth / 2)
-  
-  const angle = distFromCenter * 0.8
-  const yOffset = 300 * (1 - Math.cos(angle))
-  const centerPull = -distFromCenter * 0.02 * viewportWidth
-  const isCentered = Math.abs(distFromCenter) < 0.15
-  const xOffset = isCentered 
-    ? centerPull
-    : 300 * Math.sin(angle) * 0.1 + centerPull
-  
-  const rotation = distFromCenter * 8
-  const cardColor = CARD_COLORS[index % CARD_COLORS.length]
-
-  return (
-    <Link
-      to={`/project/${project.slug}`}
-      className="project-card"
-      style={{
-        width: `${cardSize}px`,
-        marginRight: index === totalProjects - 1 ? 0 : `${gap}px`,
-        transform: `translate3d(${xOffset}px, ${yOffset}px, 0) rotate(${rotation}deg)`,
-        zIndex: 100 - Math.round(Math.abs(distFromCenter) * 10),
-        willChange: 'transform'
-      }}
-    >
-      <div 
-        className="project-card-inner"
-        style={{ '--card-color': cardColor }}
-      >
-        <div className="project-image-container">
-          <img
-            src={project.mainImage}
-            alt={project.title}
-            className="project-image"
-            loading="lazy"
-            onError={(e) => { e.target.style.display = "none" }}
-          />
-        </div>
-        <h3 className="project-title">{project.title}</h3>
-      </div>
-    </Link>
-  )
-})
-
-ProjectCard.displayName = 'ProjectCard'
-
 function Projects() {
   const [projects] = useState(projectsData.projects || [])
   const sectionRef = useRef(null)
   const viewportRef = useRef(null)
   const trackRef = useRef(null)
-  const gsapInstanceRef = useRef(null)
   const [scrollProgress, setScrollProgress] = useState(0)
   const [animatedTranslateX, setAnimatedTranslateX] = useState(0)
   const dimensions = useWindowSize()
 
   const isMobile = dimensions.width < 768
 
-  const { CARD_SIZE, GAP, startOffset, maxTranslate } = useMemo(() => {
+  const { CARD_SIZE, GAP, totalContentWidth, startOffset, maxTranslate } = useMemo(() => {
     const cardSize = isMobile 
       ? dimensions.width * 0.85 
       : Math.min(dimensions.width * 0.45, dimensions.height * 0.85)
     const gap = isMobile ? 30 : 200
+    const totalWidth = projects.length * cardSize + (projects.length - 1) * gap
     const start = dimensions.width + cardSize
-    const max = (projects.length * cardSize + (projects.length - 1) * gap) + dimensions.width * 2
+    const max = totalWidth + dimensions.width * 2
 
     return {
       CARD_SIZE: cardSize,
       GAP: gap,
+      totalContentWidth: totalWidth,
       startOffset: start,
       maxTranslate: max
     }
@@ -148,7 +88,7 @@ function Projects() {
     let closestCardIndex = 0
     let minDistance = Infinity
     
-    for (let index = 0; index < projects.length; index++) {
+    projects.forEach((_, index) => {
       const cardLeftPos = index * (CARD_SIZE + GAP)
       const cardCenterInTrack = cardLeftPos + targetTranslateX + CARD_SIZE / 2
       const distance = Math.abs(cardCenterInTrack - viewportCenter)
@@ -157,7 +97,7 @@ function Projects() {
         minDistance = distance
         closestCardIndex = index
       }
-    }
+    })
     
     const targetCardLeftPos = closestCardIndex * (CARD_SIZE + GAP)
     const targetCardCenter = targetCardLeftPos + CARD_SIZE / 2
@@ -170,11 +110,7 @@ function Projects() {
     const smoothedTranslateX = targetTranslateX + (snappedTranslateX - targetTranslateX) * snapStrength
     const adaptiveDuration = Math.max(0.4, Math.min(0.8, distanceToSnap / 200))
     
-    if (gsapInstanceRef.current) {
-      gsapInstanceRef.current.kill()
-    }
-    
-    gsapInstanceRef.current = gsap.to(trackRef.current, {
+    gsap.to(trackRef.current, {
       x: smoothedTranslateX,
       duration: adaptiveDuration,
       ease: "power2.out",
@@ -187,12 +123,6 @@ function Projects() {
         }
       }
     })
-    
-    return () => {
-      if (gsapInstanceRef.current) {
-        gsapInstanceRef.current.kill()
-      }
-    }
   }, [targetTranslateX, CARD_SIZE, GAP, projects.length, dimensions.width])
   
   const currentTranslateX = animatedTranslateX || targetTranslateX
@@ -203,6 +133,60 @@ function Projects() {
 
   const viewportCenter = useMemo(() => viewportWidth / 2, [viewportWidth])
 
+  const ProjectCard = React.memo(({ project, index }) => {
+    const cardLeftPos = index * (CARD_SIZE + GAP)
+    const cardLeftInTrack = cardLeftPos + currentTranslateX
+    const cardCenterInTrack = cardLeftInTrack + CARD_SIZE / 2
+    
+    const distFromCenterPx = cardCenterInTrack - viewportCenter
+    const distFromCenter = distFromCenterPx / (viewportWidth / 2)
+    
+    const arcRadius = 300
+    const angle = distFromCenter * 0.8
+    const yOffset = arcRadius * (1 - Math.cos(angle))
+    
+    const attractionForce = 0.02
+    const centerPull = -distFromCenter * attractionForce * viewportWidth
+    
+    const isCentered = Math.abs(distFromCenter) < 0.15
+    const xOffset = isCentered 
+      ? centerPull
+      : arcRadius * Math.sin(angle) * 0.1 + centerPull
+    
+    const rotation = distFromCenter * 8
+    const cardColor = CARD_COLORS[index % CARD_COLORS.length]
+
+    return (
+      <Link
+        to={`/project/${project.slug}`}
+        className="project-card"
+        style={{
+          width: `${CARD_SIZE}px`,
+          marginRight: index === projects.length - 1 ? 0 : `${GAP}px`,
+          transform: `translate3d(${xOffset}px, ${yOffset}px, 0) rotate(${rotation}deg)`,
+          zIndex: 100 - Math.round(Math.abs(distFromCenter) * 10),
+          willChange: 'transform'
+        }}
+      >
+        <div 
+          className="project-card-inner"
+          style={{ '--card-color': cardColor }}
+        >
+          <div className="project-image-container">
+            <img
+              src={project.mainImage}
+              alt={project.title}
+              className="project-image"
+              loading="lazy"
+              onError={(e) => { e.target.style.display = "none" }}
+            />
+          </div>
+          <h3 className="project-title">{project.title}</h3>
+        </div>
+      </Link>
+    )
+  })
+
   return (
     <section ref={sectionRef} id="projects" className="projects-section">
       <div className="projects-sticky-container">
@@ -212,17 +196,7 @@ function Projects() {
           <div ref={viewportRef} className="projects-viewport">
             <div ref={trackRef} className="projects-track">
               {projects.map((project, index) => (
-                <ProjectCard 
-                  key={project.slug} 
-                  project={project} 
-                  index={index}
-                  cardSize={CARD_SIZE}
-                  gap={GAP}
-                  translateX={currentTranslateX}
-                  viewportCenter={viewportCenter}
-                  viewportWidth={viewportWidth}
-                  totalProjects={projects.length}
-                />
+                <ProjectCard key={project.slug} project={project} index={index} />
               ))}
             </div>
           </div>
