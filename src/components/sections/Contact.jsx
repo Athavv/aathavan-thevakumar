@@ -6,7 +6,7 @@ function Contact() {
     <section id="contact" className="contact-section">
       <div className="max-w-[1100px] mx-auto w-full contact-container">
         <BlurIn delay={0.2}>
-          <h2 className="section-title">Contact me</h2>
+          <h2 className="section-title">Contact</h2>
         </BlurIn>
 
         <BlurIn delay={0.4}>
@@ -23,7 +23,7 @@ function Contact() {
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
                 >
-                  <img src="/logos/linkedin.svg" alt="LinkedIn" />
+                  <img src="/logos/linkedin.svg" alt="LinkedIn" loading="lazy" />
                 </a>
               </li>
               <li>
@@ -33,7 +33,7 @@ function Contact() {
                   rel="noopener noreferrer"
                   aria-label="GitHub"
                 >
-                  <img src="/logos/github.svg" alt="GitHub" />
+                  <img src="/logos/tools/github.svg" alt="GitHub" loading="lazy" />
                 </a>
               </li>
             </ul>

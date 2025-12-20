@@ -2,11 +2,30 @@
   position: relative;
   width: 100%;
   padding: 0 clamp(20px, 5vw, 60px);
-  font-family: 'Arial', sans-serif;
+  font-family: 'Inter', sans-serif;
   min-height: 70vh;
   display: flex;
   align-items: flex-start;
   padding-top: 200px;
+  overflow: hidden;
+}
+
+.contact-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    transparent;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.contact-section > div {
+  position: relative;
+  z-index: 1;
 }
 
 .contact-container {
@@ -25,14 +44,17 @@
 
 #mail {
   font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-family: 'Space Grotesk', sans-serif;
   color: white;
   text-decoration: none;
-  font-weight: 300;
-  transition: color 0.3s ease;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  letter-spacing: 0.02em;
 }
 
 #mail:hover {
-  color: #a855f7;
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
 }
 
 .infos-contact ul {
@@ -50,13 +72,14 @@
 }
 
 .infos-contact ul a:hover {
-  transform: scale(1.1);
+  transform: scale(1.15) translateY(-4px);
 }
 
 .infos-contact ul img {
   width: 50px;
   height: 50px;
   display: block;
+  filter: brightness(0) invert(1); /* Force le logo à être blanc */
 }
 
 @media screen and (max-width: 768px) {

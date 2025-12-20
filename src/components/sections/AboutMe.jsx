@@ -6,12 +6,12 @@ function AboutMe() {
   return (
     <section id="about" className="about-me-section">
       <div className="max-w-[1100px] mx-auto">
-        <h2 className="section-title">About me</h2>
+        <h2 className="section-title">À propos</h2>
 
         <div className="about-container">
           <div className="about-col image-col">
             <div className="photo-wrapper">
-              <img src={aathavanPhoto} alt="Aathavan Thevakumar" className="photo-img" />
+              <img src={aathavanPhoto} alt="Aathavan Thevakumar" className="photo-img" loading="lazy" />
             </div>
           </div>
 

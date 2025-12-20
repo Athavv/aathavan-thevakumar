@@ -1,22 +1,16 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useMemo } from "react"
 import experienceData from "../../data/experience.json"
 import BlurIn from "../animations/BlurIn"
 
 function Experience() {
-  const [experiences] = useState(experienceData.experiences || [])
+  const experiences = useMemo(() => experienceData.experiences || [], [])
   const [selectedExperience, setSelectedExperience] = useState(experiences[0] || null)
-
-  useEffect(() => {
-    if (experiences.length > 0 && !selectedExperience) {
-      setSelectedExperience(experiences[0])
-    }
-  }, [experiences, selectedExperience])
 
   return (
     <section id="experience" className="experience-section">
       <div className="max-w-[1100px] mx-auto">
         <BlurIn delay={0.2}>
-          <h2 className="section-title">Experiences</h2>
+          <h2 className="section-title">Expériences</h2>
         </BlurIn>
 
         <div className="experience-container">
@@ -32,6 +26,7 @@ function Experience() {
                     src={exp.logo}
                     alt={exp.company}
                     className="company-logo"
+                    loading="lazy"
                     onError={(e) => { e.target.style.display = "none" }}
                   />
                   <div className="company-name">{exp.company}</div>
@@ -68,7 +63,11 @@ function Experience() {
                     {selectedExperience.image && (
                       <div className="details-image">
                         <div className="image-wrapper">
-                          <img src={selectedExperience.image} alt={selectedExperience.company} />
+                          <img 
+                            src={selectedExperience.image} 
+                            alt={selectedExperience.company}
+                            loading="lazy"
+                          />
                           {selectedExperience.imageCaption && (
                             <div className="image-caption">{selectedExperience.imageCaption}</div>
                           )}

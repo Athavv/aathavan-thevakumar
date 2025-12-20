@@ -1,0 +1,150 @@
+{
+  "categories": ["Frontend", "Backend", "Design", "Tools & DevOps"],
+  "categoryColors": {
+    "Frontend": "#6b7280",
+    "Backend": "#6b7280",
+    "Design": "#6b7280",
+    "Tools & DevOps": "#6b7280"
+  },
+  "skills": [
+    {
+      "name": "Angular",
+      "logo": "/logos/frontend/angular.svg",
+      "category": "Frontend"
+    },
+    {
+      "name": "JavaScript",
+      "logo": "/logos/frontend/javascript.svg",
+      "category": "Frontend"
+    },
+    {
+      "name": "HTML",
+      "logo": "/logos/frontend/html.svg",
+      "category": "Frontend"
+    },
+    {
+      "name": "CSS",
+      "logo": "/logos/frontend/css.svg",
+      "category": "Frontend"
+    },
+    {
+      "name": "Tailwind CSS",
+      "logo": "/logos/frontend/tailwind.svg",
+      "category": "Frontend"
+    },
+    {
+      "name": "Bootstrap",
+      "logo": "/logos/frontend/bootstrap.svg",
+      "category": "Frontend"
+    },
+    {
+      "name": "React",
+      "logo": "/logos/frontend/react.svg",
+      "category": "Frontend"
+    },
+    {
+      "name": "TypeScript",
+      "logo": "/logos/frontend/typescript.svg",
+      "category": "Frontend"
+    },
+    {
+      "name": "PHP",
+      "logo": "/logos/backend/php.svg",
+      "category": "Backend"
+    },
+    {
+      "name": "MySQL",
+      "logo": "/logos/backend/mysql.svg",
+      "category": "Backend"
+    },
+    {
+      "name": "Java",
+      "logo": "/logos/backend/java.svg",
+      "category": "Backend"
+    },
+    {
+      "name": "Spring Boot",
+      "logo": "/logos/backend/spring.svg",
+      "category": "Backend"
+    },
+    {
+      "name": "Node.js",
+      "logo": "/logos/backend/node-js.svg",
+      "category": "Backend"
+    },
+    {
+      "name": "MongoDB",
+      "logo": "/logos/backend/mongodb.svg",
+      "category": "Backend"
+    },
+    {
+      "name": "Figma",
+      "logo": "/logos/design/figma.svg",
+      "category": "Design"
+    },
+    {
+      "name": "Adobe Photoshop",
+      "logo": "/logos/design/photoshop.svg",
+      "category": "Design"
+    },
+    {
+      "name": "Adobe Illustrator",
+      "logo": "/logos/design/illustrator.svg",
+      "category": "Design"
+    },
+    {
+      "name": "Adobe InDesign",
+      "logo": "/logos/design/indesign.svg",
+      "category": "Design"
+    },
+    {
+      "name": "Adobe Premiere Pro",
+      "logo": "/logos/design/premiere.svg",
+      "category": "Design"
+    },
+    {
+      "name": "Blender",
+      "logo": "/logos/design/blender.svg",
+      "category": "Design"
+    },
+    {
+      "name": "Unity",
+      "logo": "/logos/design/unity.svg",
+      "category": "Design"
+    },
+    {
+      "name": "UX/UI Design",
+      "category": "Design"
+    },
+    {
+      "name": "GitHub",
+      "logo": "/logos/tools/github.svg",
+      "category": "Tools & DevOps"
+    },
+    {
+      "name": "Docker",
+      "logo": "/logos/tools/docker.svg",
+      "category": "Tools & DevOps"
+    },
+    {
+      "name": "Jenkins",
+      "logo": "/logos/tools/jenkins.svg",
+      "category": "Tools & DevOps"
+    },
+    {
+      "name": "Bitbucket",
+      "logo": "/logos/tools/bitbucket.svg",
+      "category": "Tools & DevOps"
+    },
+    {
+      "name": "WordPress",
+      "logo": "/logos/cms/wordpress.svg",
+      "category": "Tools & DevOps"
+    },
+    {
+      "name": "Méthode Agile",
+      "logo": "/logos/methodology/agile.svg",
+      "category": "Tools & DevOps"
+    }
+  ]
+}

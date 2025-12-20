@@ -1,7 +1,121 @@
-import React, { useLayoutEffect, useRef } from "react"
+import React, { useLayoutEffect, useRef, useCallback } from "react"
 import { gsap } from "gsap"
 import { MotionPathPlugin } from "gsap/MotionPathPlugin"
 gsap.registerPlugin(MotionPathPlugin)
+
+const initCursorSystem = () => {
+  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+  const isSmallScreen = window.innerWidth < 1024
+  if (isTouch || isSmallScreen) return null
+
+  document.body.classList.add('custom-cursor-active')
+
+  const cursorContainer = document.createElement("div")
+  cursorContainer.className = "sun-cursor"
+  
+  const cursorVisual = document.createElement("div")
+  cursorVisual.className = "sun-cursor-visual"
+  
+  cursorContainer.appendChild(cursorVisual)
+  document.body.appendChild(cursorContainer)
+
+  let mouseX = window.innerWidth / 2
+  let mouseY = window.innerHeight / 2
+  let currentX = mouseX
+  let currentY = mouseY 
+
+  gsap.set(cursorContainer, { left: mouseX, top: mouseY, opacity: 0, scale: 0 })
+  gsap.to(cursorContainer, { opacity: 1, scale: 1, duration: 0.4 })
+
+  let isHovering = false
+  let prevX = currentX
+  let prevY = currentY
+  let trailLine = null
+
+  const handleMouseMove = (e) => {
+    mouseX = e.clientX
+    mouseY = e.clientY
+
+    const element = document.elementFromPoint(e.clientX, e.clientY)
+    const isClickable = element && (
+        element.tagName === 'BUTTON' || 
+        element.tagName === 'A' || 
+        element.onclick || 
+        window.getComputedStyle(element).cursor === 'pointer'
+    )
+
+    if (isClickable && !isHovering) {
+        isHovering = true
+        gsap.to(cursorVisual, { scale: 0.6, duration: 0.2 })
+    } else if (!isClickable && isHovering) {
+        isHovering = false
+        gsap.to(cursorVisual, { scale: 1, duration: 0.2 })
+    }
+  }
+
+  const handleClick = () => {
+    if (isHovering) {
+         gsap.to(cursorVisual, { scale: 0.4, duration: 0.1, yoyo: true, repeat: 1 })
+    }
+  }
+
+  const updateTrail = () => {
+    if (!trailLine) {
+      trailLine = document.createElement("div")
+      trailLine.className = "trail-line"
+      document.body.appendChild(trailLine)
+    }
+
+    const dx = currentX - prevX
+    const dy = currentY - prevY
+    const distance = Math.sqrt(dx * dx + dy * dy)
+    const angle = Math.atan2(dy, dx) * (180 / Math.PI)
+
+    if (distance > 0.5) {
+      trailLine.style.left = `${prevX}px`
+      trailLine.style.top = `${prevY}px`
+      trailLine.style.width = `${distance}px`
+      trailLine.style.transform = `rotate(${angle}deg)`
+      trailLine.style.opacity = '1'
+    }
+
+    prevX = currentX
+    prevY = currentY
+  }
+
+  let rafId = null
+  const animateCursor = () => {
+    currentX += (mouseX - currentX) * 0.15
+    currentY += (mouseY - currentY) * 0.15
+    
+    cursorContainer.style.left = `${currentX}px`
+    cursorContainer.style.top = `${currentY}px`
+
+    updateTrail()
+    rafId = requestAnimationFrame(animateCursor)
+  }
+
+  const throttledMouseMove = (e) => {
+    requestAnimationFrame(() => handleMouseMove(e))
+  }
+
+  window.addEventListener("mousemove", throttledMouseMove, { passive: true })
+  window.addEventListener("click", handleClick)
+  animateCursor()
+
+  return () => {
+    window.removeEventListener("mousemove", throttledMouseMove)
+    window.removeEventListener("click", handleClick)
+    if (rafId) cancelAnimationFrame(rafId)
+    if (cursorContainer.parentNode) {
+      cursorContainer.parentNode.removeChild(cursorContainer)
+    }
+    if (trailLine && trailLine.parentNode) {
+      trailLine.parentNode.removeChild(trailLine)
+    }
+    document.body.classList.remove('custom-cursor-active')
+  }
+}
 
 function IntroSunrise({ onFinish }) {
   const sunRef = useRef(null)
@@ -13,9 +127,13 @@ function IntroSunrise({ onFinish }) {
       const sun = sunRef.current
       const container = containerRef.current
       const text = textRef.current
-      const letters = text.querySelectorAll('.letter')
+      const letters = text?.querySelectorAll('.letter')
 
-      if (!sun || !container || !text) return
+      if (!sun || !container || !text || !letters) return
+
+      const isMobile = window.innerWidth < 768
+      const textStartProgress = isMobile ? 0.35 : 0.4
+      const textEndProgress = 0.75
 
       const tl = gsap.timeline({
         onComplete: () => {
@@ -24,199 +142,98 @@ function IntroSunrise({ onFinish }) {
         }
       })
 
-      // SETUP
-      gsap.set(sun, { x: "-45vw", y: "40vh", opacity: 0 })
-      gsap.set(letters, { opacity: 0, y: 50, scale: 0.5 })
+      gsap.set(sun, { x: "-45vw", y: "40vh", opacity: 0, force3D: true })
+      gsap.set(letters, { opacity: 0, y: 50, scale: 0.5, force3D: true })
 
-      // 1. ARC DU SOLEIL (2.2s)
       tl.to(sun, {
-        duration: 2.2, 
+        duration: 2.8, 
         ease: "sine.inOut",
         opacity: 1,
+        force3D: true,
         motionPath: {
           path: [
             { x: "-45vw", y: "40vh" },
-            { x: "0vw", y: "-25vh" }, // Sommet
+            { x: "0vw", y: "-25vh" },
             { x: "45vw", y: "40vh" },
           ],
           curviness: 1.5,
-        },
-        onUpdate: function() {
-          const progress = this.progress()
-          // APPARITION TEXTE : TÔT (dès 25% du trajet)
-          if (progress >= 0.25 && progress <= 0.7) {
-            const letterProgress = (progress - 0.25) / 0.35
-            const lettersToShow = Math.floor(letterProgress * letters.length)
-            
-            letters.forEach((letter, index) => {
-              if (index <= lettersToShow) {
-                gsap.to(letter, {
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                  duration: 0.3, 
-                  ease: "back.out(1.7)",
-                  overwrite: "auto"
-                })
-              }
-            })
-          }
         }
       })
 
-      // 2. RETOUR AU CENTRE (Impact) - Rapide (0.5s)
+      const textStartTime = 2.8 * textStartProgress
+      const textEndTime = 2.8 * textEndProgress
+      const textAnimationDuration = textEndTime - textStartTime
+      
+      tl.to(letters, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.25,
+        stagger: {
+          amount: textAnimationDuration,
+          from: "start"
+        },
+        ease: "back.out(1.7)",
+        force3D: true
+      }, textStartTime)
+
       tl.to(sun, {
         x: "0vw",
         y: "0vh",
         duration: 0.5,
         ease: "power2.inOut",
-      }, 2.2)
+      }, 2.8)
 
-      // 3. EXPLOSION LETTRES (0.5s)
       tl.to(letters, {
         opacity: 0,
-        y: (index) => -100 - Math.random() * 100,
-        x: (index) => (Math.random() - 0.5) * 200,
-        rotation: (index) => (Math.random() - 0.5) * 360,
-        scale: 0,
-        duration: 0.5,
-        stagger: 0.02,
-        ease: "power2.out",
-      }, 2.7)
+        scale: 0.8,
+        y: -20,
+        duration: 0.4,
+        stagger: 0.03,
+        ease: "power2.in",
+        force3D: true
+      }, 2.9)
 
-      // 4. RÉTRÉCISSEMENT (0.6s)
       tl.to(sun, {
         width: "60px",
         height: "60px",
         boxShadow: "0 0 20px 10px rgba(255,180,50,0.4)",
         duration: 0.6,
         ease: "power2.inOut",
-      }, 2.7)
-
-      // 5. LE SAUT (Hop !) - 0.4s (Vif)
-      tl.to(sun, { 
-        y: "-35vh", // Saute bien haut
-        duration: 0.4, 
-        ease: "power2.out" // Ralentit en montant
+        force3D: true
       }, 3.3)
+
+      tl.to(sun, { 
+        y: "-35vh",
+        duration: 0.3, 
+        ease: "power2.out"
+      }, 3.9)
       
-      // 6. LA CHUTE & LE RIDEAU - 0.8s (Lourd et rapide)
       tl.addLabel("falling")
 
-      // A. Le soleil tombe
       tl.to(sun, { 
         y: "110vh", 
-        duration: 0.8, 
-        ease: "expo.in" // Accélère fort vers la fin (gravité)
+        duration: 0.5, 
+        ease: "expo.in"
       }, "falling")
 
-      // B. Le RIDEAU NOIR disparaît du haut vers le bas
-      // clipPath: inset(top right bottom left) -> On met top à 100%
       tl.to(container, {
         clipPath: "inset(100% 0 0 0)", 
-        duration: 0.8, 
-        ease: "expo.in", // Parfaitement synchro avec le soleil
+        duration: 0.5, 
+        ease: "expo.in",
       }, "falling")
 
     })
 
-    // --- LOGIQUE CURSEUR (inchangée, s'active à la fin) ---
-    const initCursorSystem = () => {
-      const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0
-      const isSmallScreen = window.innerWidth < 1024
-      if (isTouch || isSmallScreen) return 
-
-      document.body.classList.add('custom-cursor-active')
-
-      const cursorContainer = document.createElement("div")
-      cursorContainer.className = "sun-cursor"
-      
-      const cursorVisual = document.createElement("div")
-      cursorVisual.className = "sun-cursor-visual"
-      
-      cursorContainer.appendChild(cursorVisual)
-      document.body.appendChild(cursorContainer)
-
-      let mouseX = window.innerWidth / 2
-      let mouseY = window.innerHeight / 2
-      let currentX = mouseX
-      let currentY = mouseY 
-
-      // Fade in propre du curseur
-      gsap.set(cursorContainer, { left: mouseX, top: mouseY, opacity: 0, scale: 0 })
-      gsap.to(cursorContainer, { opacity: 1, scale: 1, duration: 0.4 })
-
-      let frameCount = 0
-      let isHovering = false
-
-      const handleMouseMove = (e) => {
-        mouseX = e.clientX
-        mouseY = e.clientY
-
-        const element = document.elementFromPoint(e.clientX, e.clientY)
-        const isClickable = element && (
-            element.tagName === 'BUTTON' || 
-            element.tagName === 'A' || 
-            element.onclick || 
-            window.getComputedStyle(element).cursor === 'pointer'
-        )
-
-        if (isClickable && !isHovering) {
-            isHovering = true
-            gsap.to(cursorVisual, { scale: 0.6, duration: 0.2 })
-        } else if (!isClickable && isHovering) {
-            isHovering = false
-            gsap.to(cursorVisual, { scale: 1, duration: 0.2 })
-        }
-      }
-
-      const handleClick = () => {
-        if (isHovering) {
-             gsap.to(cursorVisual, { scale: 0.4, duration: 0.1, yoyo: true, repeat: 1 })
-        }
-      }
-
-      const animateCursor = () => {
-        currentX += (mouseX - currentX) * 0.15
-        currentY += (mouseY - currentY) * 0.15
-        
-        cursorContainer.style.left = `${currentX}px`
-        cursorContainer.style.top = `${currentY}px`
-
-        const speed = Math.abs(mouseX - currentX) + Math.abs(mouseY - currentY)
-        if (speed > 2) {
-            frameCount++
-            if (frameCount % 4 === 0) createTrail(currentX, currentY)
-        }
-        requestAnimationFrame(animateCursor)
-      }
-
-      const createTrail = (x, y) => {
-        const ray = document.createElement("div")
-        ray.className = "trail-ray"
-        ray.style.left = `${x}px`
-        ray.style.top = `${y}px`
-        document.body.appendChild(ray)
-        gsap.to(ray, {
-            opacity: 0,
-            scaleX: 0.2,
-            duration: 0.4,
-            onComplete: () => ray.remove()
-        })
-      }
-
-      window.addEventListener("mousemove", handleMouseMove)
-      window.addEventListener("click", handleClick)
-      animateCursor()
+    return () => {
+      ctx.revert()
     }
-
-    return () => ctx.revert()
   }, [onFinish])
 
   return (
     <div ref={containerRef} className="intro-container">
       <h1 ref={textRef} className="intro-text">
-        {"Bienvenue".split("").map((char, index) => (
+        {"BIENVENUE".split("").map((char, index) => (
           <span key={index} className="letter">
             {char}
           </span>

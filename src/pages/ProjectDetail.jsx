@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef, useCallback } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import projectsData from "../data/projects.json"
 import "../style/_projectDetail.css"
 import Header from "../components/layouts/Header"
+import { useThrottle } from "../hooks/useThrottle"
 
 function ProjectDetail() {
   const { slug } = useParams()
@@ -20,33 +21,36 @@ function ProjectDetail() {
     setLoading(false)
   }, [slug])
 
-  useEffect(() => {
+  const handleScroll = useCallback(() => {
     if (!project || !galleryRef.current || !descriptionRef.current) return
 
-    const handleScroll = () => {
-      const scrollY = window.scrollY
-      const windowHeight = window.innerHeight
-      const descriptionTop = descriptionRef.current.offsetTop
-      const descriptionHeight = descriptionRef.current.offsetHeight
+    const scrollY = window.scrollY
+    const windowHeight = window.innerHeight
+    const descriptionTop = descriptionRef.current.offsetTop
+    const descriptionHeight = descriptionRef.current.offsetHeight
 
-      if (scrollY >= descriptionTop - windowHeight / 2) {
-        const progress = Math.min(
-          (scrollY - descriptionTop + windowHeight / 2) / descriptionHeight,
-          1
-        )
-        const images = galleryRef.current.querySelectorAll("img")
-        images.forEach((img, index) => {
-          const offset = (index + 1) * 80
-          const translateY = progress * offset
-          img.style.transform = `translateY(${translateY}px)`
-          img.style.opacity = 1 - progress * 0.2
-        })
+    if (scrollY >= descriptionTop - windowHeight / 2) {
+      const progress = Math.min(
+        (scrollY - descriptionTop + windowHeight / 2) / descriptionHeight,
+        1
+      )
+      const images = galleryRef.current.querySelectorAll("img")
+      for (let i = 0; i < images.length; i++) {
+        const img = images[i]
+        const offset = (i + 1) * 80
+        const translateY = progress * offset
+        img.style.transform = `translateY(${translateY}px)`
+        img.style.opacity = 1 - progress * 0.2
       }
     }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
   }, [project])
+
+  const throttledHandleScroll = useThrottle(handleScroll, 16)
+
+  useEffect(() => {
+    window.addEventListener("scroll", throttledHandleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", throttledHandleScroll)
+  }, [throttledHandleScroll])
 
   if (loading) {
     return (
@@ -80,7 +84,6 @@ function ProjectDetail() {
       <Header />
       <div className="project-detail">
         <div className="project-content">
-          {/* Bouton retour en haut à gauche */}
           <button onClick={() => navigate(-1)} className="back-button-top">
             <svg className="back-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -88,23 +91,20 @@ function ProjectDetail() {
             Retour
           </button>
 
-          {/* Section titre et stacks */}
           <div className="project-intro">
-            {/* Titre à gauche */}
             <div className="title-section">
               <h1 className="projectDetails-title">{project.title}</h1>
             </div>
 
-            {/* Stacks et infos à droite */}
             <div className="info-section">
-              {/* SVG des stacks */}
               <div className="stacks-container">
                 {project.stacks.map((stack, index) => (
-                  <div key={index} className="stack-item" title={stack.name}>
+                  <div key={`${stack.name}-${index}`} className="stack-item" title={stack.name}>
                     <img
                       src={stack.logo}
                       alt={stack.name}
                       className="stack-logo"
+                      loading="lazy"
                       onError={(e) => {
                         e.target.style.display = "none"
                         e.target.nextSibling.style.display = "flex"
@@ -115,10 +115,8 @@ function ProjectDetail() {
                 ))}
               </div>
 
-              {/* Mini descriptif */}
               <p className="short-description">{project.shortDescription}</p>
 
-              {/* Bouton voir code */}
               {project.github && (
                 <a
                   href={project.github}
@@ -139,12 +137,12 @@ function ProjectDetail() {
             </div>
           </div>
 
-          {/* Image principale */}
           <div className="main-image-container">
             <img
               src={project.mainImage}
               alt={project.title}
               className="main-image"
+              loading="eager"
               onError={(e) => {
                 e.target.style.display = "none"
                 e.target.parentElement.innerHTML = '<div class="image-placeholder">Image principale</div>'
@@ -152,24 +150,34 @@ function ProjectDetail() {
             />
           </div>
 
-          {/* Section description sticky et galerie */}
           <div className="description-gallery-section">
-            {/* Description sticky à gauche */}
             <div className="description-container">
               <div ref={descriptionRef} className="description-content">
                 <h2 className="description-title">Description</h2>
                 <p className="description-text">{project.fullDescription}</p>
+                
+                {project.challenges && project.challenges.length > 0 && (
+                  <div className="challenges-section">
+                    <h3 className="challenges-title">Defis rencontres</h3>
+                    {project.challenges.map((challenge, index) => (
+                      <div key={index} className="challenge-item">
+                        <h4 className="challenge-title">{challenge.title}</h4>
+                        <p className="challenge-summary">{challenge.solution}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Galerie qui scroll à droite */}
             <div ref={galleryRef} className="gallery-container">
               {project.gallery.map((image, index) => (
-                <div key={index} className="gallery-item">
+                <div key={`${image}-${index}`} className="gallery-item">
                   <img
                     src={image}
                     alt={`${project.title} - Screenshot ${index + 1}`}
                     className="gallery-image"
+                    loading="lazy"
                     onError={(e) => {
                       e.target.style.display = "none"
                       e.target.parentElement.innerHTML = `<div class="image-placeholder">Image ${index + 1}</div>`

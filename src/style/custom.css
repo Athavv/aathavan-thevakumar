@@ -3,6 +3,7 @@
 @import './_hero.css';
 @import './_aboutMe.css';
 @import './_projects.css';
+@import './_skills.css';
 @import './_experience.css';
 @import './_header.css';
 @import './_contact.css';
@@ -235,6 +236,9 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, button {
 .section-title {
   font-size: 4rem;
   line-height: 1.2;
+  font-family: 'Space Quest', cursive;
+  font-weight: 400;
+  letter-spacing: 0.05em;
 }
 
 @media screen and (max-width: 768px) {

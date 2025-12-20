@@ -33,37 +33,47 @@
 .hero-title {
   font-size: 6rem;
   line-height: 1.1;
-  font-family: 'Playfair Display', serif;
-  font-weight: 900;
+  font-family: 'Space Quest', cursive;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  position: relative;
 }
 
 .hero-title-shadow {
   position: absolute;
   top: 0;
   left: 0;
-  opacity: 0.15;
   transform: translate(8px, 8px);
   z-index: 1;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  opacity: 0; /* Initialement transparente */
+}
+
+.hero-title-shadow h1 {
+  color: rgba(255, 255, 255, 0.4) !important;
+  opacity: 1 !important;
 }
 
 .hero-title-main {
   position: relative;
   z-index: 2;
-  color: #ffffff;
-  text-shadow: 0 0 20px rgba(255,255,255,0.4);
+  will-change: transform;
+  transform: translateZ(0); /* Force l'accélération GPU */
 }
 
 .hero-subtitle {
   position: relative;
   align-self: flex-end;
   margin-right: 0;
-  font-size: 2rem;
-  letter-spacing: 2px;
-  font-family: 'Playfair Display', serif;
-  font-weight: 900;
+  font-size: 2.5rem;
+  letter-spacing: 0.02em;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
   color: #ffffff;
   text-align: right;
+  margin-top: 1rem;
 }
 
 .letter {

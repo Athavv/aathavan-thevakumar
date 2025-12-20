@@ -3,8 +3,20 @@
     {
       "slug": "easy2drive",
       "title": "Easy2Drive",
-      "shortDescription": "Plateforme de suivi des notes pour élèves d'auto-école.",
-      "fullDescription": "Easy2Drive est une application web développée pour permettre aux élèves d'auto-école de consulter leurs notes et leur progression en ligne. Le projet repose sur une architecture front-end / back-end avec Angular pour l'interface utilisateur et une API développée en PHP reliée à une base de données MySQL. L'objectif principal était de proposer une interface claire, moderne et accessible, facilitant la communication entre l'auto-école et ses élèves.",
+      "shortDescription": "Plateforme de suivi des notes pour eleves d'auto-ecole.",
+      "fullDescription": "Easy2Drive est une application web developpee pour permettre aux eleves d'auto-ecole de consulter leurs notes et leur progression en ligne. Le projet repose sur une architecture front-end / back-end avec Angular pour l'interface utilisateur et une API developpee en PHP reliée à une base de données MySQL. L'objectif principal était de proposer une interface claire, moderne et accessible, facilitant la communication entre l'auto-ecole et ses eleves.",
+      "challenges": [
+        {
+          "title": "Gestion de l'authentification et des sessions",
+          "description": "La mise en place d'un système d'authentification sécurisé avec gestion des sessions côté serveur a été un défi, notamment pour garantir la sécurité des données des eleves.",
+          "solution": "J'ai implémenté un système de tokens JWT avec validation côté serveur, combiné à une gestion des sessions PHP robuste. J'ai egalement ajouté des mécanismes de protection contre les attaques CSRF et XSS."
+        },
+        {
+          "title": "Synchronisation des données en temps reel",
+          "description": "Assurer que les données affichées soient toujours à jour sans nécessiter de rechargement de page était complexe avec Angular.",
+          "solution": "J'ai utilisé les observables RxJS d'Angular pour créer un système de polling intelligent qui met à jour les données automatiquement, tout en optimisant les appels API pour éviter la surcharge du serveur."
+        }
+      ],
       "mainImage": "/images/easy2drive/main.png",
       "gallery": [
         "/images/easy2drive/screen1.png",
@@ -15,19 +27,19 @@
       "stacks": [
         {
           "name": "Angular",
-          "logo": "/logos/angular.svg"
+          "logo": "/logos/frontend/angular.svg"
         },
         {
           "name": "PHP",
-          "logo": "/logos/php.svg"
+          "logo": "/logos/backend/php.svg"
         },
         {
           "name": "MySQL",
-          "logo": "/logos/mysql.svg"
+          "logo": "/logos/backend/mysql.svg"
         },
         {
           "name": "Bootstrap",
-          "logo": "/logos/bootstrap.svg"
+          "logo": "/logos/frontend/bootstrap.svg"
         }
       ]
     },
@@ -35,7 +47,19 @@
       "slug": "pestify",
       "title": "Pestify",
       "shortDescription": "Site de datavisualisation sur le biocontrôle agricole.",
-      "fullDescription": "Pestify est un projet de datavisualisation réalisé dans le cadre de la SAE 303. Le site met en avant des données liées au biocontrôle agricole, une alternative écologique aux pesticides conventionnels. Le travail a consisté à analyser un large jeu de données, à en extraire des informations pertinentes, puis à les restituer sous forme de graphiques interactifs et d'une narration visuelle claire.",
+      "fullDescription": "Pestify est un projet de datavisualisation realise dans le cadre de la SAE 303. Le site met en avant des données liées au biocontrôle agricole, une alternative ecologique aux pesticides conventionnels. Le travail a consisté à analyser un large jeu de données, à en extraire des informations pertinentes, puis à les restituer sous forme de graphiques interactifs et d'une narration visuelle claire.",
+      "challenges": [
+        {
+          "title": "Traitement et nettoyage de grandes quantités de données",
+          "description": "Le jeu de données initial contenait de nombreuses incohérences, valeurs manquantes et formats différents qui rendaient l'analyse complexe.",
+          "solution": "J'ai développé des scripts JavaScript pour nettoyer et normaliser les données, en utilisant des expressions régulières et des algorithmes de validation. J'ai egalement créé une structure de données optimisée pour faciliter la génération des graphiques."
+        },
+        {
+          "title": "Création de visualisations interactives et engageantes",
+          "description": "Rendre les graphiques à la fois informatifs et visuellement attrayants tout en restant accessibles était un défi.",
+          "solution": "J'ai utilisé Chart.js avec des configurations personnalisées pour créer des graphiques interactifs. J'ai egalement implémenté des animations fluides et des tooltips informatifs pour améliorer l'expérience utilisateur."
+        }
+      ],
       "mainImage": "/images/pestify/main.png",
       "gallery": [
         "/images/pestify/screen1.png",
@@ -45,19 +69,19 @@
       "stacks": [
         {
           "name": "HTML",
-          "logo": "/logos/html.svg"
+          "logo": "/logos/frontend/html.svg"
         },
         {
           "name": "CSS",
-          "logo": "/logos/css.svg"
+          "logo": "/logos/frontend/css.svg"
         },
         {
           "name": "JavaScript",
-          "logo": "/logos/javascript.svg"
+          "logo": "/logos/frontend/javascript.svg"
         },
                 {
           "name": "Bootstrap",
-          "logo": "/logos/bootstrap.svg"
+          "logo": "/logos/frontend/bootstrap.svg"
         },
         {
           "name": "ChartJS",
@@ -69,7 +93,19 @@
       "slug": "ananote",
       "title": "Ananote",
       "shortDescription": "Application de gestion scolaire avec rôles multiples.",
-      "fullDescription": "Ananote est une application web de gestion d'école développée en PHP et MySQL. Elle propose des interfaces distinctes pour les étudiants, les professeurs et les administrateurs. Les étudiants peuvent consulter leurs notes, les professeurs peuvent les saisir, et les administrateurs gèrent l'ensemble du système. Une attention particulière a été portée à l'ergonomie et à la clarté des interfaces.",
+      "fullDescription": "Ananote est une application web de gestion d'école developpee en PHP et MySQL. Elle propose des interfaces distinctes pour les etudiants, les professeurs et les administrateurs. Les etudiants peuvent consulter leurs notes, les professeurs peuvent les saisir, et les administrateurs gèrent l'ensemble du système. Une attention particulière a été portée à l'ergonomie et à la clarté des interfaces.",
+      "challenges": [
+        {
+          "title": "Gestion des rôles et permissions complexes",
+          "description": "Créer un système de permissions granulaire pour trois types d'utilisateurs avec des droits différents sur différentes ressources était complexe.",
+          "solution": "J'ai implémenté un système de rôles basé sur une table de permissions dans MySQL, avec des middlewares PHP qui vérifient les droits d'accès avant chaque action. J'ai egalement créé une interface d'administration pour gérer facilement les permissions."
+        },
+        {
+          "title": "Optimisation des performances avec de grandes bases de données",
+          "description": "Avec potentiellement des centaines d'etudiants et de nombreuses notes, les requêtes SQL devenaient lentes.",
+          "solution": "J'ai optimisé les requêtes SQL en ajoutant des index appropriés, en utilisant des jointures efficaces et en implémentant un système de pagination. J'ai egalement mis en cache certaines données fréquemment consultées."
+        }
+      ],
       "mainImage": "/images/ananote/main.png",
       "gallery": [
         "/images/ananote/screen1.png",
@@ -81,19 +117,19 @@
       "stacks": [
         {
           "name": "PHP",
-          "logo": "/logos/php.svg"
+          "logo": "/logos/backend/php.svg"
         },
         {
           "name": "MySQL",
-          "logo": "/logos/mysql.svg"
+          "logo": "/logos/backend/mysql.svg"
         },
         {
           "name": "Bootstrap",
-          "logo": "/logos/bootstrap.svg"
+          "logo": "/logos/frontend/bootstrap.svg"
         },
         {
           "name": "JavaScript",
-          "logo": "/logos/javascript.svg"
+          "logo": "/logos/frontend/javascript.svg"
         }
       ]
     },
@@ -102,6 +138,18 @@
       "title": "Refonte ACF2L",
       "shortDescription": "Modernisation du site web d'un aéroclub.",
       "fullDescription": "Ce projet consistait en la refonte complète du site web d'un aéroclub. Après une phase de conception sur Figma, le site a été développé avec Bootstrap afin d'améliorer l'ergonomie, l'accessibilité et l'aspect visuel. Le résultat est un site moderne, responsive et facilement consultable, hébergé sur Vercel.",
+      "challenges": [
+        {
+          "title": "Migration du contenu existant",
+          "description": "Transférer tout le contenu de l'ancien site vers la nouvelle structure tout en préservant les informations importantes était fastidieux.",
+          "solution": "J'ai créé un script de migration qui extrait automatiquement le contenu de l'ancien site et le formate pour la nouvelle structure. J'ai egalement effectué une revision manuelle pour garantir la qualité et la cohérence du contenu."
+        },
+        {
+          "title": "Respect des contraintes d'accessibilité",
+          "description": "S'assurer que le site soit accessible à tous, y compris aux personnes en situation de handicap, était une priorité.",
+          "solution": "J'ai suivi les guidelines WCAG en utilisant des balises sémantiques HTML5, en ajoutant des attributs ARIA appropriés, et en testant la navigation au clavier. J'ai egalement optimisé les contrastes de couleurs et ajouté des alternatives textuelles pour les images."
+        }
+      ],
       "mainImage": "/images/acf2l/main.png",
       "gallery": [
         "/images/acf2l/screen1.png",
@@ -111,11 +159,11 @@
       "stacks": [
         {
           "name": "Bootstrap",
-          "logo": "/logos/bootstrap.svg"
+          "logo": "/logos/frontend/bootstrap.svg"
         },
         {
           "name": "Figma",
-          "logo": "/logos/figma.svg"
+          "logo": "/logos/design/figma.svg"
         }
       ]
     },
@@ -124,6 +172,18 @@
       "title": "Muyal",
       "shortDescription": "Site WordPress dédié aux lapins et à leur bien-être.",
       "fullDescription": "Muyal est un site WordPress conçu autour de l'univers des lapins. Il permet aux utilisateurs de découvrir différentes races, les accessoires nécessaires à leur bien-être ainsi que des informations utiles pour faciliter l'adoption. Ce projet met en avant mes compétences en intégration WordPress et en gestion de contenu.",
+      "challenges": [
+        {
+          "title": "Personnalisation du thème WordPress",
+          "description": "Adapter un thème WordPress existant pour correspondre exactement à la vision du design tout en conservant la flexibilité du CMS était un défi.",
+          "solution": "J'ai créé un thème enfant personnalisé qui surcharge les templates du thème parent. J'ai egalement développé des plugins personnalisés pour ajouter des fonctionnalités spécifiques sans modifier le code core de WordPress."
+        },
+        {
+          "title": "Optimisation des performances avec de nombreuses images",
+          "description": "Le site contenait de nombreuses images de races de lapins, ce qui ralentissait considérablement le chargement.",
+          "solution": "J'ai implémenté un système de lazy loading pour les images, optimisé les tailles d'images avec des formats modernes (WebP), et utilisé un plugin de cache pour améliorer les performances globales du site."
+        }
+      ],
       "mainImage": "/images/muyal/main.png",
       "gallery": [
         "/images/muyal/screen1.png"
@@ -132,7 +192,7 @@
       "stacks": [
         {
           "name": "WordPress",
-          "logo": "/logos/wordpress.svg"
+          "logo": "/logos/cms/wordpress.svg"
         }
       ]
     },
@@ -140,7 +200,19 @@
       "slug": "infochoko",
       "title": "InfoChoko",
       "shortDescription": "Webdocumentaire immersif sur le Salon du Chocolat.",
-      "fullDescription": "InfoChoko est un webdocumentaire réalisé autour du Salon du Chocolat. Le projet combine vidéos, photographies, interviews et enregistrements audio afin de proposer une expérience immersive. J'ai participé à la captation des contenus ainsi qu'à la conception et au développement du site web, mêlant storytelling et design numérique.",
+      "fullDescription": "InfoChoko est un webdocumentaire realise autour du Salon du Chocolat. Le projet combine vidéos, photographies, interviews et enregistrements audio afin de proposer une expérience immersive. J'ai participé à la captation des contenus ainsi qu'à la conception et au développement du site web, mêlant storytelling et design numérique.",
+      "challenges": [
+        {
+          "title": "Intégration de médias multiples de manière fluide",
+          "description": "Synchroniser vidéos, audio et images pour créer une expérience narrative cohérente et immersive était complexe.",
+          "solution": "J'ai développé un système de timeline personnalisé en JavaScript qui synchronise tous les médias. J'ai egalement optimisé le chargement progressif pour éviter les ralentissements et créé des transitions fluides entre les différents éléments multimédias."
+        },
+        {
+          "title": "Gestion de la bande passante avec des fichiers multimédias volumineux",
+          "description": "Les vidéos et fichiers audio étaient très lourds, ce qui posait problème pour les utilisateurs avec une connexion lente.",
+          "solution": "J'ai implémenté un système de streaming adaptatif qui ajuste la qualité des médias selon la connexion de l'utilisateur. J'ai egalement compressé les fichiers audio et créé plusieurs versions de qualité pour les vidéos."
+        }
+      ],
       "mainImage": "/images/infochoko/main.png",
       "gallery": [
         "/images/infochoko/screen1.png",
@@ -153,19 +225,19 @@
       "stacks": [
         {
           "name": "HTML",
-          "logo": "/logos/html.svg"
+          "logo": "/logos/frontend/html.svg"
         },
         {
           "name": "CSS",
-          "logo": "/logos/css.svg"
+          "logo": "/logos/frontend/css.svg"
         },
         {
           "name": "Bootstrap",
-          "logo": "/logos/bootstrap.svg"
+          "logo": "/logos/frontend/bootstrap.svg"
         },
         {
           "name": "JavaScript",
-          "logo": "/logos/javascript.svg"
+          "logo": "/logos/frontend/javascript.svg"
         }
       ]
     }

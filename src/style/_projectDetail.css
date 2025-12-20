@@ -89,12 +89,13 @@
 
 .projectDetails-title {
   font-size: clamp(4rem, 9vw, 8rem);
-  font-weight: 900;
+  font-weight: 400;
   line-height: 0.95;
-  letter-spacing: -0.03em;
-  font-family: 'Fredoka One', cursive;
+  letter-spacing: 0.05em;
+  font-family: 'Space Quest', cursive;
   color: white;
   word-wrap: break-word;
+  text-transform: uppercase;
 }
 
 .info-section {
@@ -219,10 +220,12 @@
 
 .description-title {
   font-size: 3rem;
-  font-weight: 900;
+  font-weight: 400;
   margin-bottom: 1rem;
-  font-family: 'Fredoka One', cursive;
+  font-family: 'Space Quest', cursive;
   color: white;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .description-text {
@@ -267,6 +270,72 @@
   color: rgba(255, 255, 255, 0.3);
   font-size: 1rem;
   font-family: 'Inter', sans-serif;
+}
+
+.challenges-section {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.challenges-title {
+  font-size: 1.75rem;
+  font-weight: 400;
+  font-family: 'Space Quest', cursive;
+  color: white;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.challenge-item {
+  margin-bottom: 1.25rem;
+  padding: 1.25rem;
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.challenge-item:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.challenge-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.75rem;
+}
+
+.challenge-summary {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .challenges-title {
+    font-size: 2rem;
+  }
+
+  .challenge-item {
+    padding: 1.5rem;
+  }
+
+  .challenge-title {
+    font-size: 1.25rem;
+  }
+
+  .challenge-problem p,
+  .challenge-solution p {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 968px) {

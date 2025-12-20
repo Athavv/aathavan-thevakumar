@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Space Quest';
+  src: url('/typographie/Space Quest/Space Quest.otf') format('opentype'),
+       url('/typographie/Space Quest/Space Quest.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -18,6 +27,7 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   color: #ffffff;
+  background: linear-gradient(to bottom, #0a0e27 0%, #0f0f1e 100%);
 }
 
 #root {
@@ -25,17 +35,21 @@ body {
   min-height: 100vh;
 }
 
-.font-title { font-family: 'Fredoka One', cursive; }
+.font-title { font-family: 'Orbitron', sans-serif; }
 .font-body { font-family: 'Inter', sans-serif; }
 .font-display { font-family: 'Space Grotesk', sans-serif; }
+.font-heading { font-family: 'Orbitron', sans-serif; }
 
 .section-title {
-  font-size: 4rem;
-  line-height: 1.2;
-  font-family: 'Fredoka One', cursive;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.1;
+  font-family: 'Space Quest', cursive;
+  font-weight: 400;
   color: #ffffff;
   margin-bottom: 4rem;
   text-align: left;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 @media screen and (max-width: 768px) {

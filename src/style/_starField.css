@@ -1,6 +1,9 @@
 .star-field {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: -10;
-  background: linear-gradient(to bottom, #0a0e27 0%, #0f0f1e 100%);
+  pointer-events: none;
 }

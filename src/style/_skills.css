@@ -1,0 +1,302 @@
+.skills-section {
+  position: relative;
+  width: 100%;
+  padding: 5rem clamp(20px, 5vw, 60px);
+  min-height: 100vh;
+  padding-top: 200px;
+  overflow: visible;
+}
+
+.planets-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 6rem 4rem;
+  margin-top: 4rem;
+  justify-items: center;
+  align-items: start;
+}
+
+.planet-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.planet {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: 
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.2), transparent 50%),
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255, 200, 100, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at center, var(--planet-color, rgba(139, 92, 246, 0.8)) 0%, rgba(107, 114, 128, 0.7) 40%, rgba(30, 41, 59, 0.8) 70%, rgba(0, 0, 0, 0.4) 100%);
+  box-shadow: 
+    0 0 40px rgba(139, 92, 246, 0.4),
+    0 0 80px rgba(139, 92, 246, 0.2),
+    inset -40px -40px 80px rgba(0, 0, 0, 0.5),
+    inset 30px 30px 60px rgba(255, 255, 255, 0.08),
+    inset 0 0 100px rgba(139, 92, 246, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: visible;
+}
+
+.planet::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 45%, rgba(255, 255, 255, 0.08) 50%, transparent 55%);
+  opacity: 0.6;
+  z-index: -1;
+  animation: planet-glow 4s ease-in-out infinite;
+}
+
+@keyframes planet-glow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* Anneaux de Saturne - style */
+.planet::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateX(75deg);
+  width: 280px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(139, 92, 246, 0.15) 20%,
+    rgba(139, 92, 246, 0.25) 40%,
+    rgba(139, 92, 246, 0.15) 60%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  box-shadow: 
+    0 0 20px rgba(139, 92, 246, 0.3),
+    inset 0 2px 10px rgba(0, 0, 0, 0.5);
+  z-index: 8;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.planet-core {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.planet-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.orbit-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
+  pointer-events: none;
+  animation: orbit-rotate 30s linear infinite;
+  z-index: 1;
+}
+
+@keyframes orbit-rotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.orbit-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+  transform-origin: center;
+}
+
+.orbit-behind {
+  z-index: 5; /* Derrière la planète */
+  opacity: 0.7;
+}
+
+.orbit-front {
+  z-index: 15; /* Devant la planète */
+  opacity: 1;
+}
+
+/* Transition fluide pour l'effet devant/derrière */
+.orbit-item {
+  transition: opacity 0.3s ease, z-index 0s linear 0.15s;
+}
+
+.orbit-skill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  opacity: 1;
+  transform: scale(1);
+  animation: counter-rotate 25s linear infinite;
+  pointer-events: all;
+}
+
+@keyframes counter-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.orbit-icon {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  opacity: 1;
+  transition: all 0.3s ease;
+  filter: none;
+}
+
+.orbit-item:hover .orbit-icon {
+  transform: scale(1.3);
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
+}
+
+.orbit-icon-fallback {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.orbit-item:hover .orbit-icon-fallback {
+  transform: scale(1.3);
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.orbit-skill-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+  transition: all 0.3s ease;
+}
+
+.orbit-item:hover .orbit-skill-name {
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.5);
+}
+
+@media screen and (max-width: 768px) {
+  .planets-container {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 4rem;
+  }
+
+  .planet {
+    width: 160px;
+    height: 160px;
+  }
+
+  .planet-label {
+    font-size: 0.75rem;
+  }
+
+  .orbit-item {
+    width: 65px;
+    height: 65px;
+  }
+
+  .orbit-icon,
+  .orbit-icon-fallback {
+    width: 35px;
+    height: 35px;
+  }
+
+  .orbit-skill-name {
+    font-size: 0.65rem;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .skills-section {
+    padding-top: 150px;
+  }
+
+  .planets-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+  }
+
+  .planet {
+    width: 140px;
+    height: 140px;
+  }
+
+  .orbit-item {
+    width: 55px;
+    height: 55px;
+  }
+
+  .orbit-icon,
+  .orbit-icon-fallback {
+    width: 30px;
+    height: 30px;
+  }
+}
