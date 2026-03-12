@@ -1,18 +1,14 @@
 /* Styles personnalisés pour le portfolio - Fichier principal */
 
-@import './_hero.css';
-@import './_aboutMe.css';
-@import './_projects.css';
-@import './_experience.css';
-@import './_header.css';
-@import './_contact.css';
-@import './_projects.css';
-@import './_introSunrise.css';
-@import './_starField.css';
-
+@import "./_aboutMe.css";
+@import "./_projects.css";
+@import "./_experience.css";
+@import "./_header.css";
+@import "./_contact.css";
+@import "./_introSunrise.css";
 
 body {
-  color: #ffffff;
+  color: var(--fg, #ffffff);
 }
 
 /* Titres de sections uniformisés */
@@ -32,79 +28,11 @@ body {
   }
 }
 
-/* Forcer le texte blanc partout */
-* {
-  color: inherit;
-}
-
-h1, h2, h3, h4, h5, h6, p, span, a, li, button {
-  color: #ffffff;
-}
-
 /* Assurer que les textes avec opacité restent visibles */
 .text-white\/80,
 .text-white\/70,
 .text-white\/60 {
-  color: rgba(255, 255, 255, 0.8) !important;
-}
-
-/* Styles Hero */
-.hero-section {
-  min-height: 100vh;
-}
-
-.hero-container {
-  min-height: calc(100vh - 400px);
-}
-
-.hero-title {
-  font-size: 160px;
-  line-height: 1.1;
-}
-
-.hero-subtitle {
-  position: relative;
-}
-
-@media screen and (max-width: 967px) {
-  .hero-title {
-    font-size: 130px;
-  }
-  .hero-subtitle {
-    font-size: 50px;
-  }
-}
-
-@media screen and (max-width: 757px) {
-  .hero-container {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 100px clamp(30px, 6vw, 60px);
-  }
-  .hero-title {
-    margin-bottom: 40px;
-  }
-  .hero-subtitle {
-    margin-left: auto;
-  }
-}
-
-@media screen and (max-width: 537px) {
-  .hero-title {
-    font-size: 100px;
-  }
-  .hero-subtitle {
-    font-size: 30px;
-  }
-}
-
-@media screen and (max-width: 450px) {
-  .hero-title {
-    font-size: 80px;
-  }
-  .hero-subtitle {
-    font-size: 25px;
-  }
+  color: var(--fg-muted, rgba(255, 255, 255, 0.8)) !important;
 }
 
 /* Styles About Me */
@@ -251,13 +179,13 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, button {
 
 /* Amélioration de la lisibilité */
 .text-white {
-  color: #ffffff !important;
+  color: var(--fg, #ffffff) !important;
 }
 
 .text-white\/80 {
-  color: rgba(255, 255, 255, 0.8) !important;
+  color: var(--fg-muted, rgba(255, 255, 255, 0.8)) !important;
 }
 
 .text-white\/70 {
-  color: rgba(255, 255, 255, 0.7) !important;
+  color: var(--fg-muted, rgba(255, 255, 255, 0.7)) !important;
 }

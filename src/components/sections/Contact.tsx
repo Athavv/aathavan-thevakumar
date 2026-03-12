@@ -1,7 +1,6 @@
-import React from "react"
-import BlurIn from "../animations/BlurIn"
+import BlurIn from "../animations/BlurIn.tsx";
 
-function Contact() {
+export default function Contact() {
   return (
     <section id="contact" className="contact-section">
       <div className="max-w-[1100px] mx-auto w-full contact-container">
@@ -41,7 +40,5 @@ function Contact() {
         </BlurIn>
       </div>
     </section>
-  )
+  );
 }
-
-export default Contact

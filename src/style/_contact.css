@@ -2,11 +2,15 @@
   position: relative;
   width: 100%;
   padding: 0 clamp(20px, 5vw, 60px);
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   min-height: 70vh;
   display: flex;
   align-items: flex-start;
   padding-top: 200px;
+}
+
+.contact-section .section-title {
+  color: #111827;
 }
 
 .contact-container {
@@ -25,7 +29,7 @@
 
 #mail {
   font-size: clamp(1.5rem, 3vw, 2.5rem);
-  color: white;
+  color: #111827;
   text-decoration: none;
   font-weight: 300;
   transition: color 0.3s ease;
@@ -65,8 +69,12 @@
     align-items: flex-start;
     gap: 2rem;
   }
-  #mail { font-size: clamp(1.5rem, 6vw, 2.5rem); }
-  .infos-contact ul { gap: 1.5rem; }
+  #mail {
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+  }
+  .infos-contact ul {
+    gap: 1.5rem;
+  }
   .infos-contact ul img {
     width: 40px;
     height: 40px;

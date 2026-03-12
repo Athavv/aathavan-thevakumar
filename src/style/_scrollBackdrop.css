@@ -1,0 +1,71 @@
+.scroll-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.scroll-backdrop-base {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.scroll-backdrop-black {
+  position: absolute;
+  inset: 0;
+  background: #05060a;
+  clip-path: inset(0% 0% 0% 0% round 28px);
+  will-change: clip-path, opacity;
+  overflow: hidden;
+}
+
+.scroll-backdrop-sun {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  width: 54px;
+  height: 54px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    #fff7c8 0%,
+    #ffdd55 45%,
+    #ff9900 100%
+  );
+  box-shadow:
+    0 0 20px rgba(255, 180, 50, 0.35),
+    0 0 60px rgba(255, 180, 50, 0.18);
+  opacity: calc(var(--backdrop-t, 0) * 1);
+  transform: scale(calc(0.9 + var(--backdrop-t, 0) * 0.15));
+  transition: opacity 200ms linear;
+  pointer-events: none;
+}
+
+.scroll-backdrop-side {
+  position: absolute;
+  top: 50%;
+  width: 120px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04);
+  opacity: calc(var(--backdrop-t, 0) * 1);
+  transform: translateY(-50%) scaleX(calc(0.6 + var(--backdrop-t, 0) * 0.6));
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.scroll-backdrop-side-left {
+  left: 18px;
+}
+
+.scroll-backdrop-side-right {
+  right: 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-backdrop-black {
+    clip-path: inset(0% 0% 0% 0% round 0px);
+  }
+}

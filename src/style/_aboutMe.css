@@ -2,7 +2,11 @@
   position: relative;
   width: 100%;
   padding: 3rem clamp(20px, 5vw, 60px);
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
+}
+
+.about-me-section .section-title {
+  color: #111827;
 }
 
 .about-container {
@@ -34,7 +38,7 @@
   aspect-ratio: 1/1;
   overflow: hidden;
   border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .photo-img {
@@ -45,7 +49,7 @@
 }
 
 .text-desc {
-  color: #ffffff;
+  color: #1f2937;
   font-size: 1.125rem;
   line-height: 1.75;
   text-align: left;
@@ -60,7 +64,7 @@
 .parcours {
   font-size: 1.875rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #111827;
   margin-bottom: 2rem;
   padding-bottom: 15px;
 }
@@ -68,7 +72,7 @@
 .timeline {
   position: relative;
   padding-left: 40px;
-  border-left: 2px solid #555;
+  border-left: 2px solid #d1d5db;
   display: flex;
   flex-direction: column;
   gap: 50px;
@@ -89,14 +93,14 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background-color: white;
-  border: 4px solid #000;
-  box-shadow: 0 0 0 2px white;
+  background-color: #111827;
+  border: 4px solid #ffffff;
+  box-shadow: 0 0 0 2px #111827;
 }
 
 .timeline-dot.current {
-  background-color: #000;
-  border: 3px solid white;
+  background-color: #ffffff;
+  border: 3px solid #111827;
   box-shadow: none;
   width: 18px;
   height: 18px;
@@ -110,7 +114,7 @@
 }
 
 .school {
-  color: white;
+  color: #111827;
   font-weight: 800;
   font-size: 1.25rem;
   text-transform: uppercase;
@@ -119,25 +123,25 @@
 }
 
 .location {
-  color: #9ca3af;
+  color: #4b5563;
   display: block;
   margin-bottom: 0.25rem;
 }
 
 .degree {
-  color: #d1d5db;
+  color: #374151;
   font-size: 1rem;
 }
 
 .mention {
-  color: #9ca3af;
+  color: #4b5563;
   font-style: italic;
   display: block;
   margin-top: 0.25rem;
 }
 
 .timeline-date {
-  color: #9ca3af;
+  color: #4b5563;
   font-style: italic;
   font-size: 0.95rem;
   white-space: nowrap;
@@ -152,9 +156,21 @@
 }
 
 @keyframes moon-pulse {
-  0% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.4), inset -10px -10px 20px rgba(0, 0, 0, 0.2); }
-  50% { box-shadow: 0 0 25px rgba(255, 255, 255, 0.7), inset -10px -10px 20px rgba(0, 0, 0, 0.2); }
-  100% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.4), inset -10px -10px 20px rgba(0, 0, 0, 0.2); }
+  0% {
+    box-shadow:
+      0 0 15px rgba(255, 255, 255, 0.4),
+      inset -10px -10px 20px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 25px rgba(255, 255, 255, 0.7),
+      inset -10px -10px 20px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    box-shadow:
+      0 0 15px rgba(255, 255, 255, 0.4),
+      inset -10px -10px 20px rgba(0, 0, 0, 0.2);
+  }
 }
 
 .moon-btn {
@@ -168,7 +184,9 @@
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.4), inset -15px -15px 30px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 0 15px rgba(255, 255, 255, 0.4),
+    inset -15px -15px 30px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -183,31 +201,33 @@
 .moon-btn:hover {
   transform: scale(1.1) rotate(-3deg);
   background: radial-gradient(circle at 35% 35%, #ffffff, #e5e7eb);
-  box-shadow: 0 0 35px rgba(255, 255, 255, 0.8), inset -10px -10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 0 35px rgba(255, 255, 255, 0.8),
+    inset -10px -10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .moon-btn::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 25%;
   left: 20%;
   width: 18px;
   height: 18px;
-  background-color: rgba(0,0,0,0.06);
+  background-color: rgba(0, 0, 0, 0.06);
   border-radius: 50%;
-  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .moon-btn::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 25%;
   right: 25%;
   width: 25px;
   height: 25px;
-  background-color: rgba(0,0,0,0.06);
+  background-color: rgba(0, 0, 0, 0.06);
   border-radius: 50%;
-  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 @media screen and (max-width: 900px) {
@@ -220,12 +240,16 @@
     width: 100%;
     align-items: center;
   }
-  .text-desc { text-align: center; }
+  .text-desc {
+    text-align: center;
+  }
   .image-col {
     justify-content: center;
     align-items: center;
   }
-  .btn-container { justify-content: center; }
+  .btn-container {
+    justify-content: center;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -238,6 +262,10 @@
     text-align: left;
     font-size: 0.85rem;
   }
-  .school { font-size: 1.1rem; }
-  .timeline-content { max-width: 100%; }
+  .school {
+    font-size: 1.1rem;
+  }
+  .timeline-content {
+    max-width: 100%;
+  }
 }

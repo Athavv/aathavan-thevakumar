@@ -11,8 +11,9 @@
   z-index: 9999; /* Au-dessus de tout */
   overflow: hidden;
   isolation: isolate;
+  background: #05060a;
   /* Performance pour l'animation de découpe */
-  will-change: clip-path; 
+  will-change: clip-path;
 }
 
 /* Texte : Z-INDEX 1 (Derrière le soleil) */
@@ -24,7 +25,7 @@
   text-align: center;
   font-size: 120px;
   pointer-events: none;
-  z-index: 1; 
+  z-index: 1;
   width: 100%;
 }
 
@@ -36,11 +37,13 @@
 
 /* Soleil : Z-INDEX 100 (Devant le texte) */
 .intro-sun {
-  width: 700px;
-  height: 700px;
+  width: 220px;
+  height: 220px;
   border-radius: 50%;
-  background: radial-gradient(circle, #fff4a3, #ffdd55, #ff9900);
-  box-shadow: 0 0 150px 80px rgba(255, 180, 50, 0.6);
+  background: radial-gradient(circle, #fff6ad 0%, #ffd84d 42%, #ffb300 100%);
+  box-shadow:
+    0 0 32px 12px rgba(255, 210, 80, 0.36),
+    0 0 90px 28px rgba(255, 180, 50, 0.2);
   position: absolute;
   pointer-events: none;
   opacity: 0;
@@ -55,8 +58,8 @@ body.custom-cursor-active {
 
 .sun-cursor {
   position: fixed;
-  width: 60px;
-  height: 60px;
+  width: 14px;
+  height: 14px;
   pointer-events: none;
   z-index: 99999;
   left: 50%;
@@ -69,18 +72,28 @@ body.custom-cursor-active {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: radial-gradient(circle, #fff4a3, #ffdd55, #ff9900);
-  box-shadow: 0 0 20px 10px rgba(255, 180, 50, 0.4);
+  background: radial-gradient(circle, #fff6ad 0%, #ffd84d 45%, #ffb300 100%);
+  box-shadow:
+    0 0 6px rgba(255, 221, 85, 0.75),
+    0 0 14px rgba(255, 180, 50, 0.24);
 }
 
 .trail-ray {
   position: fixed;
-  width: 60px;
-  height: 3px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, rgba(255, 244, 163, 0) 0%, rgba(255, 221, 85, 0.9) 50%, rgba(255, 244, 163, 0) 100%);
-  box-shadow: 0 0 8px rgba(255, 221, 85, 1), 0 0 15px rgba(255, 180, 50, 0.8);
+  width: 24px;
+  height: 6px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 244, 163, 0) 0%,
+    rgba(255, 221, 85, 0.12) 20%,
+    rgba(255, 221, 85, 0.78) 100%
+  );
+  filter: blur(1.25px);
+  box-shadow: 0 0 8px rgba(255, 190, 70, 0.22);
   pointer-events: none;
   z-index: 99998;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) rotate(var(--trail-angle, 0rad))
+    scaleX(var(--trail-scale, 1));
+  transform-origin: center;
 }

@@ -1,8 +1,7 @@
-import React from "react"
-import aathavanPhoto from "../../assets/aathavan_thevakumar.jpg"
-import monCV from "../../assets/Aathavan_Thevakumar_CV-ALTERNANCE.pdf"
+import aathavanPhoto from "../../assets/aathavan_thevakumar.jpg";
+import monCV from "../../assets/Aathavan_Thevakumar_CV-ALTERNANCE.pdf";
 
-function AboutMe() {
+export default function AboutMe() {
   return (
     <section id="about" className="about-me-section">
       <div className="max-w-[1100px] mx-auto">
@@ -11,24 +10,33 @@ function AboutMe() {
         <div className="about-container">
           <div className="about-col image-col">
             <div className="photo-wrapper">
-              <img src={aathavanPhoto} alt="Aathavan Thevakumar" className="photo-img" />
+              <img
+                src={aathavanPhoto}
+                alt="Aathavan Thevakumar"
+                className="photo-img"
+              />
             </div>
           </div>
 
           <div className="about-col text-col">
             <p className="text-desc">
-              Bienvenue sur mon Portfolio ! <br /><br />
+              Bienvenue sur mon Portfolio ! <br />
+              <br />
               Je suis un développeur fullstack, actuellement en alternance chez{" "}
               <a
                 href="https://xelians.fr/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white underline hover:text-purple-400 transition-colors font-bold"
+                className="text-(--fg) underline hover:text-purple-400 transition-colors font-bold"
               >
                 Xelians
               </a>{" "}
-              dans le cadre de ma troisième année de BUT MMI (Métiers du Multimédia et de l'Internet). <br /><br />
-              Dans ce portfolio vous allez pouvoir retrouver certains projets que j'ai réalisés, que ce soit dans le cadre de mes études ou durant mon temps libre.
+              dans le cadre de ma troisième année de BUT MMI (Métiers du
+              Multimédia et de l'Internet). <br />
+              <br />
+              Dans ce portfolio vous allez pouvoir retrouver certains projets
+              que j'ai réalisés, que ce soit dans le cadre de mes études ou
+              durant mon temps libre.
             </p>
 
             <div className="timeline-section">
@@ -39,7 +47,9 @@ function AboutMe() {
                   <div className="timeline-content">
                     <h4 className="school">IUT DE MARNE LA VALLÉE</h4>
                     <span className="location">Site de Meaux</span>
-                    <p className="degree">BUT Métiers du Multimédia et de l'Internet</p>
+                    <p className="degree">
+                      BUT Métiers du Multimédia et de l'Internet
+                    </p>
                   </div>
                   <div className="timeline-date">2023 - 2026</div>
                 </div>
@@ -65,7 +75,5 @@ function AboutMe() {
         </div>
       </div>
     </section>
-  )
+  );
 }
-
-export default AboutMe
