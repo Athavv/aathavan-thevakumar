@@ -1,8 +1,28 @@
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 export default function Header() {
   const location = useLocation();
   const isHome = location.pathname === "/";
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      const diff = y - lastScrollY.current;
+      if (y > 80 && diff > 4) {
+        setHidden(true);
+      } else if (diff < -4) {
+        setHidden(false);
+      }
+      lastScrollY.current = y;
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const sectionItems = [
     { label: "Accueil", href: "#hero" },
     { label: "À propos", href: "#about" },
@@ -11,12 +31,9 @@ export default function Header() {
   ];
 
   return (
-    <header className="site-header">
+    <header className={`site-header ${hidden ? "site-header--hidden" : ""}`}>
       <div className="header-pill">
-        <Link to="/" className="header-brand">
-          <span className="header-brand-mark">AT</span>
-          <span className="header-brand-text">Aathavan</span>
-        </Link>
+        <Link to="/" className="header-brand" aria-label="Accueil" />
 
         <nav className="header-nav">
           {sectionItems.map((item) =>

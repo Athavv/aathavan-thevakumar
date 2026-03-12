@@ -2,11 +2,11 @@
   position: relative;
   width: 100%;
   min-height: 100vh;
-  padding: 7rem clamp(20px, 5vw, 60px) 5rem;
+  padding: 6rem clamp(24px, 7vw, 80px) 5rem;
 }
 
 .experience-section .section-title {
-  color: #ffffff;
+  color: #111827;
 }
 
 .experience-shell {
@@ -26,18 +26,13 @@
   gap: 28px;
   padding: 32px 28px;
   border-radius: 28px;
-  background: linear-gradient(
-    180deg,
-    rgba(14, 16, 24, 0.9) 0%,
-    rgba(14, 16, 24, 0.72) 100%
-  );
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
-  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 20px 70px rgba(15, 23, 42, 0.08);
 }
 
 .experience-intro {
-  color: rgba(255, 255, 255, 0.76);
+  color: #4b5563;
   font-size: 1rem;
   line-height: 1.8;
 }
@@ -54,12 +49,12 @@
   gap: 16px;
   padding: 16px 18px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(15, 23, 42, 0.02);
+  border: 1px solid rgba(15, 23, 42, 0.05);
 }
 
 .experience-metric-value {
-  color: #ffffff;
+  color: #111827;
   font-family: "Space Grotesk", sans-serif;
   font-size: clamp(1.1rem, 2vw, 1.8rem);
   font-weight: 700;
@@ -67,7 +62,7 @@
 }
 
 .experience-metric-label {
-  color: rgba(255, 255, 255, 0.66);
+  color: #6b7280;
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -85,13 +80,9 @@
   top: calc(118px + (var(--experience-index) * 22px));
   padding: 30px;
   border-radius: 28px;
-  background: linear-gradient(
-    180deg,
-    rgba(11, 14, 22, 0.94) 0%,
-    rgba(18, 22, 34, 0.88) 100%
-  );
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.24);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 22px 70px rgba(15, 23, 42, 0.09);
 }
 
 .experience-card-top {
@@ -110,7 +101,7 @@
 }
 
 .experience-card-index {
-  color: rgba(255, 255, 255, 0.34);
+  color: #9ca3af;
   font-family: "Space Grotesk", sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
@@ -118,7 +109,7 @@
 }
 
 .experience-company {
-  color: #ffffff;
+  color: #111827;
   font-size: clamp(1.5rem, 3vw, 2.2rem);
   font-weight: 700;
   line-height: 1.08;
@@ -126,7 +117,7 @@
 
 .experience-company-caption {
   margin-top: 6px;
-  color: rgba(255, 255, 255, 0.65);
+  color: #4b5563;
   font-size: 0.95rem;
   line-height: 1.6;
 }
@@ -136,8 +127,8 @@
   height: 62px;
   object-fit: cover;
   border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.8);
   flex-shrink: 0;
 }
 
@@ -164,8 +155,8 @@
 .experience-role-body {
   padding: 18px 20px;
   border-radius: 22px;
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(249, 250, 251, 0.9);
+  border: 1px solid rgba(15, 23, 42, 0.04);
 }
 
 .experience-role-header {
@@ -177,14 +168,14 @@
 }
 
 .experience-role-title {
-  color: #ffffff;
+  color: #111827;
   font-size: 1.15rem;
   font-weight: 700;
   line-height: 1.3;
 }
 
 .experience-role-period {
-  color: rgba(255, 180, 50, 0.9);
+  color: rgba(234, 88, 12, 0.9);
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -193,7 +184,7 @@
 }
 
 .experience-role-description {
-  color: rgba(255, 255, 255, 0.78);
+  color: #4b5563;
   font-size: 1rem;
   line-height: 1.75;
 }
@@ -227,8 +218,8 @@
   right: 0;
   bottom: 0;
   padding: 12px 14px;
-  background: rgba(0, 0, 0, 0.72);
-  color: #ffffff;
+  background: rgba(15, 23, 42, 0.82);
+  color: #f9fafb;
   font-size: 0.88rem;
   line-height: 1.5;
   backdrop-filter: blur(10px);

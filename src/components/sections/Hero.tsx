@@ -126,7 +126,7 @@ export default function Hero() {
           <div className="relative inline-block overflow-hidden">
             <div
               ref={titleShadowRef}
-              className="absolute left-0 top-0 z-1 translate-x-2 translate-y-2 text-(--fg) opacity-15"
+              className="absolute left-0 top-0 z-1 translate-x-2 translate-y-2 text-white opacity-15"
             >
               <h1 className="hero-title font-['Space_Grotesk'] text-[clamp(3.2rem,6.4vw,6rem)] font-bold leading-[0.98] tracking-[-0.04em]">
                 {firstName}
@@ -139,13 +139,13 @@ export default function Hero() {
             <div>
               <h1
                 ref={firstNameRef}
-                className="hero-title relative z-2 font-['Space_Grotesk'] text-[clamp(3.2rem,6.4vw,6rem)] font-bold leading-[0.98] tracking-[-0.04em] text-(--fg) [text-shadow:0_0_40px_rgba(var(--fg-rgb),0.35)]"
+                className="hero-title relative z-2 font-['Space_Grotesk'] text-[clamp(3.2rem,6.4vw,6rem)] font-bold leading-[0.98] tracking-[-0.04em] text-white [text-shadow:0_0_40px_rgba(255,255,255,0.35)]"
               >
                 {splitName(firstName)}
               </h1>
               <h1
                 ref={lastNameRef}
-                className="hero-title relative z-2 font-['Space_Grotesk'] text-[clamp(3.2rem,6.4vw,6rem)] font-bold leading-[0.98] tracking-[-0.04em] text-(--fg) [text-shadow:0_0_40px_rgba(var(--fg-rgb),0.35)]"
+                className="hero-title relative z-2 font-['Space_Grotesk'] text-[clamp(3.2rem,6.4vw,6rem)] font-bold leading-[0.98] tracking-[-0.04em] text-white [text-shadow:0_0_40px_rgba(255,255,255,0.35)]"
               >
                 {splitName(lastName)}
               </h1>
@@ -154,12 +154,12 @@ export default function Hero() {
 
           <h3
             ref={subtitleRef}
-            className="relative text-[1.05rem] font-semibold uppercase tracking-[0.18em] text-(--fg-muted)"
+            className="relative text-[1.05rem] font-semibold uppercase tracking-[0.18em] text-white/70"
           >
             {splitText("Développeur Full Stack")}
           </h3>
 
-          <p className="hero-lead max-w-[66ch] text-[1.1rem] leading-[1.7] text-(--fg-muted) max-[967px]:text-[1.05rem] max-[537px]:text-[1rem]">
+          <p className="hero-lead max-w-[66ch] text-[1.1rem] leading-[1.7] text-white/80 max-[967px]:text-[1.05rem] max-[537px]:text-[1rem]">
             Je conçois et développe des expériences web modernes, performantes
             et accessibles. Ici, tu trouveras une sélection de projets (études &
             perso) et mon parcours.
@@ -168,13 +168,13 @@ export default function Hero() {
           <div className="hero-actions flex flex-wrap items-center gap-3 max-[757px]:justify-center">
             <Link
               to="/projects"
-              className="inline-flex items-center justify-center rounded-full border border-[rgba(255,180,50,0.22)] bg-[rgba(255,180,50,0.14)] px-[18px] py-3 font-semibold text-(--fg) backdrop-blur-[10px] transition-[background,border-color,transform] duration-200 hover:-translate-y-px hover:border-[rgba(255,180,50,0.3)] hover:bg-[rgba(255,180,50,0.18)] max-[450px]:w-full"
+              className="inline-flex items-center justify-center rounded-full border border-[rgba(255,180,50,0.22)] bg-[rgba(255,180,50,0.14)] px-[18px] py-3 font-semibold text-black backdrop-blur-[10px] transition-[background,border-color,transform] duration-200 hover:-translate-y-px hover:border-[rgba(255,180,50,0.3)] hover:bg-[rgba(255,180,50,0.18)] max-[450px]:w-full"
             >
               Voir mes projets
             </Link>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/6 px-[18px] py-3 font-semibold text-(--fg) backdrop-blur-[10px] transition-[background,border-color,transform] duration-200 hover:-translate-y-px hover:border-white/25 hover:bg-white/10 max-[450px]:w-full"
+              className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/10 px-[18px] py-3 font-semibold text-white backdrop-blur-[10px] transition-[background,border-color,transform] duration-200 hover:-translate-y-px hover:border-white/25 hover:bg-white/20 max-[450px]:w-full"
             >
               Me contacter
             </a>

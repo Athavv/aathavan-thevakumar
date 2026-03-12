@@ -1,8 +1,10 @@
 .about-me-section {
   position: relative;
   width: 100%;
-  padding: 3rem clamp(20px, 5vw, 60px);
+  padding: 5rem clamp(24px, 7vw, 80px);
   font-family: "Arial", sans-serif;
+  display: flex;
+  justify-content: center;
 }
 
 .about-me-section .section-title {

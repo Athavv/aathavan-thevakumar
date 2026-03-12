@@ -8,7 +8,8 @@
 @import "./_introSunrise.css";
 
 body {
-  color: var(--fg, #ffffff);
+  background-color: #ffffff;
+  color: #111827;
 }
 
 /* Titres de sections uniformisés */
@@ -28,11 +29,12 @@ body {
   }
 }
 
-/* Assurer que les textes avec opacité restent visibles */
-.text-white\/80,
-.text-white\/70,
-.text-white\/60 {
-  color: var(--fg-muted, rgba(255, 255, 255, 0.8)) !important;
+/* Assurer que les textes restent lisibles (pas de surcharge globale sur .text-white*) */
+
+/* Forcer les SVG initialement blancs à être noirs */
+img[src$=".svg"],
+svg {
+  filter: brightness(0);
 }
 
 /* Styles About Me */
@@ -177,15 +179,4 @@ body {
   }
 }
 
-/* Amélioration de la lisibilité */
-.text-white {
-  color: var(--fg, #ffffff) !important;
-}
-
-.text-white\/80 {
-  color: var(--fg-muted, rgba(255, 255, 255, 0.8)) !important;
-}
-
-.text-white\/70 {
-  color: var(--fg-muted, rgba(255, 255, 255, 0.7)) !important;
-}
+/* Pas de surcharge supplémentaire sur .text-white pour laisser la gestion aux classes utilitaires Tailwind */

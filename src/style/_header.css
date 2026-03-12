@@ -7,6 +7,16 @@
   display: flex;
   justify-content: center;
   pointer-events: none;
+  transition:
+    transform 0.22s ease,
+    opacity 0.22s ease;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.site-header--hidden {
+  transform: translateY(-120%);
+  opacity: 0;
 }
 
 .header-pill {
@@ -29,35 +39,8 @@
 
 .header-brand {
   display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-}
-
-.header-brand-mark {
   width: 38px;
   height: 38px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 180, 50, 0.95),
-    rgba(255, 132, 0, 0.88)
-  );
-  color: #0b0e14;
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-}
-
-.header-brand-text {
-  color: rgba(255, 255, 255, 0.96);
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
 }
 
 .header-nav {

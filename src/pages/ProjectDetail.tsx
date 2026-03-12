@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import projectsData from "../data/projects.json";
 import "../style/_projectDetail.css";
 import Header from "../components/layouts/Header.tsx";
+import Contact from "../components/sections/Contact.tsx";
 
 type ProjectStack = {
   name: string;
@@ -77,6 +78,7 @@ export default function ProjectDetail() {
         <div className="project-detail-loading">
           <div className="loading-text">Chargement...</div>
         </div>
+        <Contact />
       </>
     );
   }
@@ -93,6 +95,7 @@ export default function ProjectDetail() {
             </button>
           </div>
         </div>
+        <Contact />
       </>
     );
   }
@@ -217,6 +220,7 @@ export default function ProjectDetail() {
           </div>
         </div>
       </div>
+      <Contact />
     </>
   );
 }
