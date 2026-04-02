@@ -1,17 +1,15 @@
 .site-header {
   position: fixed;
   z-index: 60;
-  top: 18px;
+  top: 20px;
   left: 0;
   right: 0;
   display: flex;
   justify-content: center;
   pointer-events: none;
-  transition:
-    transform 0.22s ease,
-    opacity 0.22s ease;
   transform: translateY(0);
   opacity: 1;
+  transition: transform 0.28s ease, opacity 0.28s ease;
 }
 
 .site-header--hidden {
@@ -21,134 +19,102 @@
 
 .header-pill {
   position: relative;
-  width: min(1120px, calc(100% - 28px));
+  width: min(1180px, calc(100% - 32px));
   border-radius: 9999px;
-  backdrop-filter: blur(18px);
-  background: rgba(8, 10, 18, 0.78);
+  backdrop-filter: blur(20px);
+  background: rgba(10, 11, 22, 0.82);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow:
-    0 16px 40px rgba(0, 0, 0, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  padding: 10px 12px;
+  box-shadow: 0 20px 48px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+  padding: 8px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
+  gap: 12px;
   pointer-events: auto;
 }
 
 .header-brand {
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 38px;
   height: 38px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, var(--accent-v), #5b3dd6);
+  font-family: "Clash Display", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #fff;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  flex-shrink: 0;
 }
 
 .header-nav {
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  gap: 4px;
+  flex-wrap: nowrap;
 }
 
 .header-link {
-  color: rgba(255, 255, 255, 0.72);
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.02em;
+  color: rgba(255,255,255,0.65);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   text-decoration: none;
-  transition:
-    color 0.2s ease,
-    background 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
-  padding: 10px 14px;
+  padding: 9px 14px;
   border-radius: 9999px;
   border: 1px solid transparent;
   white-space: nowrap;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
 }
 
-.header-link:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.08);
-  transform: translateY(-1px);
+.header-link:hover,
+.header-link--active {
+  color: #fff;
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.08);
 }
 
 .header-link-cta {
-  color: #11151f;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 180, 50, 1),
-    rgba(255, 132, 0, 0.94)
-  );
-  box-shadow: 0 8px 20px rgba(255, 166, 0, 0.24);
+  font-family: "Clash Display", sans-serif;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: #0a0a0a !important;
+  background: linear-gradient(135deg, var(--accent-a), #e8900f) !important;
+  border-color: transparent !important;
+  padding: 9px 18px;
+  box-shadow: 0 6px 20px rgba(245,166,35,0.22);
 }
 
-.header-link-cta:hover,
-.header-link-active {
-  color: #11151f;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 193, 82, 1),
-    rgba(255, 147, 26, 0.96)
-  );
-  border-color: transparent;
+.header-link-cta:hover {
+  background: linear-gradient(135deg, #f7c04a, #f09d1f) !important;
+  transform: translateY(-1px);
 }
 
-.header-glow {
-  position: absolute;
-  inset: auto auto -12px 50%;
-  width: 220px;
-  height: 24px;
-  transform: translateX(-50%);
-  background: radial-gradient(
-    circle,
-    rgba(255, 180, 50, 0.18) 0%,
-    rgba(255, 180, 50, 0) 70%
-  );
-  filter: blur(12px);
-  pointer-events: none;
-}
-
-@media screen and (max-width: 768px) {
-  .site-header {
-    top: 14px;
-  }
+/* Mobile */
+@media (max-width: 640px) {
+  .site-header { top: 14px; }
 
   .header-pill {
     width: calc(100% - 20px);
-    padding: 10px;
-    border-radius: 24px;
-    align-items: flex-start;
+    border-radius: 20px;
     flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 12px;
   }
 
   .header-nav {
     width: 100%;
-    gap: 6px;
-    justify-content: flex-start;
-  }
-
-  .header-link {
-    font-size: 12px;
-    padding: 8px 11px;
-  }
-}
-
-@media screen and (max-width: 640px) {
-  .header-brand-text {
-    font-size: 0.88rem;
-  }
-
-  .header-nav {
     overflow-x: auto;
-    flex-wrap: nowrap;
-    padding-bottom: 2px;
     scrollbar-width: none;
+    gap: 4px;
   }
 
-  .header-nav::-webkit-scrollbar {
-    display: none;
-  }
+  .header-nav::-webkit-scrollbar { display: none; }
+
+  .header-link { font-size: 0.72rem; padding: 7px 11px; }
 }

@@ -1,66 +1,64 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import monCV from "../../assets/Aathavan_Thevakumar_CV-ALTERNANCE.pdf";
+
+const NAV_LINKS = [
+  { label: "Projets",     href: "/#projects" },
+  { label: "À propos",   href: "/#about" },
+  { label: "Skills",     href: "/#skills" },
+  { label: "Expérience", href: "/#experience" },
+  { label: "Contact",    href: "/#contact" },
+];
 
 export default function Header() {
-  const location = useLocation();
-  const isHome = location.pathname === "/";
   const [hidden, setHidden] = useState(false);
   const lastScrollY = useRef(0);
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY;
-      const diff = y - lastScrollY.current;
-      if (y > 80 && diff > 4) {
-        setHidden(true);
-      } else if (diff < -4) {
-        setHidden(false);
-      }
+      setHidden(y > lastScrollY.current && y > 80);
       lastScrollY.current = y;
     };
-
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const sectionItems = [
-    { label: "Accueil", href: "#hero" },
-    { label: "À propos", href: "#about" },
-    { label: "Expériences", href: "#experience" },
-    { label: "Contact", href: "#contact" },
-  ];
+  const handleAnchor = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("/#") && location.pathname === "/") {
+      e.preventDefault();
+      const id = href.slice(2);
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
-    <header className={`site-header ${hidden ? "site-header--hidden" : ""}`}>
+    <header className={`site-header${hidden ? " site-header--hidden" : ""}`}>
       <div className="header-pill">
-        <Link to="/" className="header-brand" aria-label="Accueil" />
+        <Link to="/" className="header-brand">AT</Link>
 
         <nav className="header-nav">
-          {sectionItems.map((item) =>
-            isHome ? (
-              <a key={item.label} href={item.href} className="header-link">
-                {item.label}
-              </a>
-            ) : (
-              <a
-                key={item.label}
-                href={`/${item.href}`}
-                className="header-link"
-              >
-                {item.label}
-              </a>
-            ),
-          )}
-
-          <Link
-            to="/projects"
-            className={`header-link header-link-cta ${location.pathname === "/projects" ? "header-link-active" : ""}`}
+          {NAV_LINKS.map(({ label, href }) => (
+            <a
+              key={href}
+              href={href}
+              className="header-link"
+              onClick={(e) => handleAnchor(e, href)}
+            >
+              {label}
+            </a>
+          ))}
+          <a
+            href={monCV}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="header-link header-link-cta"
           >
-            Mes projets
-          </Link>
+            CV
+          </a>
         </nav>
       </div>
-      <div className="header-glow" />
     </header>
   );
 }
