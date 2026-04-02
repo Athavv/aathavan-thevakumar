@@ -1,14 +1,15 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./index.css";
 import "./style/custom.css";
 import App from "./App.tsx";
 
-const rootEl = document.getElementById("root");
+gsap.registerPlugin(ScrollTrigger);
 
-if (!rootEl) {
-  throw new Error("Root element #root not found");
-}
+const rootEl = document.getElementById("root");
+if (!rootEl) throw new Error("Root element #root not found");
 
 createRoot(rootEl).render(
   <StrictMode>
