@@ -124,7 +124,7 @@ export default function Hero() {
       <div ref={curtainRef} className="hero-curtain" />
 
       {/* Ghost background name */}
-      <div className="hero-bg-name" aria-hidden>
+      <div className="hero-bg-name" aria-hidden="true">
         <span>Aathavan</span>
         <span>Thevakumar</span>
       </div>
