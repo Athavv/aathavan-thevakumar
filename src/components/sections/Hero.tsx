@@ -1,184 +1,209 @@
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { Link } from "react-router-dom";
+import aathavanPhoto from "../../assets/aathavan_thevakumar.jpg";
+import monCV from "../../assets/Aathavan_Thevakumar_CV-ALTERNANCE.pdf";
+import FloatingCard from "../ui/FloatingCard";
+
+const FIRST = "Aathavan";
+const LAST = "Thevakumar";
+
+function splitLetters(text: string, cls: string) {
+  return text.split("").map((ch, i) => (
+    <span key={i} className={cls} style={{ display: "inline-block", willChange: "transform" }}>
+      {ch === " " ? "\u00A0" : ch}
+    </span>
+  ));
+}
 
 export default function Hero() {
-  const author = "Aathavan Thevakumar";
-  const [firstName, lastName] = author.split(" ");
-
-  const firstNameRef = useRef<HTMLHeadingElement | null>(null);
-  const lastNameRef = useRef<HTMLHeadingElement | null>(null);
-  const subtitleRef = useRef<HTMLHeadingElement | null>(null);
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const titleShadowRef = useRef<HTMLDivElement | null>(null);
+  const sectionRef  = useRef<HTMLElement | null>(null);
+  const curtainRef  = useRef<HTMLDivElement | null>(null);
+  const firstRef    = useRef<HTMLSpanElement | null>(null);
+  const lastRef     = useRef<HTMLSpanElement | null>(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      const firstEl = firstNameRef.current;
-      const lastEl = lastNameRef.current;
-      const subtitleEl = subtitleRef.current;
-      const titleShadowEl = titleShadowRef.current;
+      const curtain   = curtainRef.current;
+      const firstEl   = firstRef.current;
+      const lastEl    = lastRef.current;
+      const section   = sectionRef.current;
 
-      if (!firstEl || !lastEl || !subtitleEl || !titleShadowEl) return;
+      if (!curtain || !firstEl || !lastEl || !section) return;
 
-      const firstLetters =
-        firstEl.querySelectorAll<HTMLElement>(".name-letter");
-      const lastLetters = lastEl.querySelectorAll<HTMLElement>(".name-letter");
-      const subtitleLetters =
-        subtitleEl.querySelectorAll<HTMLElement>(".letter");
-      const shadowLines =
-        titleShadowEl.querySelectorAll<HTMLElement>(".hero-title");
-      const lead = sectionRef.current?.querySelector<HTMLElement>(".hero-lead");
-      const actions =
-        sectionRef.current?.querySelector<HTMLElement>(".hero-actions");
+      const firstLetters = firstEl.querySelectorAll<HTMLElement>(".hero-letter");
+      const lastLetters  = lastEl.querySelectorAll<HTMLElement>(".hero-letter");
+      const tagline      = section.querySelector<HTMLElement>(".hero-tagline");
+      const desc         = section.querySelector<HTMLElement>(".hero-desc");
+      const actions      = section.querySelector<HTMLElement>(".hero-actions");
+      const scrollInd    = section.querySelector<HTMLElement>(".hero-scroll-indicator");
+      const photo        = section.querySelector<HTMLElement>(".hero-photo-wrap");
+      const cards        = section.querySelectorAll<HTMLElement>(".floating-card");
+
+      // Start: hide everything
+      gsap.set([...firstLetters, ...lastLetters], { yPercent: 110, rotate: 3 });
+      gsap.set([tagline, desc, actions, scrollInd], { y: 28, opacity: 0 });
+      gsap.set(photo, { scale: 0.88, opacity: 0 });
+      gsap.set(cards, { y: 20, opacity: 0, scale: 0.92 });
 
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      tl.set([...firstLetters, ...lastLetters], {
-        yPercent: 110,
-        rotate: 4,
-        opacity: 0,
+      // 1. Curtain sweeps right → off screen
+      tl.to(curtain, {
+        scaleX: 0,
+        transformOrigin: "right center",
+        duration: 0.85,
+        ease: "power4.inOut",
       })
-        .set(subtitleLetters, { y: 14, opacity: 0 })
-        .set([lead, actions], { y: 24, opacity: 0 })
-        .fromTo(
-          shadowLines,
-          { y: 36, opacity: 0 },
-          {
-            y: 8,
-            opacity: 0.15,
-            duration: 0.9,
-            stagger: 0.08,
-          },
-          0,
-        )
-        .to(
-          [...firstLetters, ...lastLetters],
-          {
-            yPercent: 0,
-            rotate: 0,
-            opacity: 1,
-            duration: 1.1,
-            stagger: 0.035,
-            ease: "expo.out",
-          },
-          0.08,
-        )
-        .to(
-          subtitleLetters,
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.6,
-            stagger: 0.018,
-          },
-          0.35,
-        )
-        .to(
-          [lead, actions],
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.7,
-            stagger: 0.08,
-          },
-          0.5,
-        );
+      // 2. Letters cascade in
+      .to([...firstLetters, ...lastLetters], {
+        yPercent: 0,
+        rotate: 0,
+        duration: 1.0,
+        stagger: 0.03,
+        ease: "expo.out",
+      }, "-=0.4")
+      // 3. Tagline + desc + actions
+      .to([tagline, desc, actions], {
+        y: 0,
+        opacity: 1,
+        duration: 0.65,
+        stagger: 0.1,
+      }, "-=0.5")
+      // 4. Photo
+      .to(photo, {
+        scale: 1,
+        opacity: 1,
+        duration: 0.75,
+        ease: "power2.out",
+      }, "-=0.65")
+      // 5. Floating cards stagger
+      .to(cards, {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 0.5,
+        stagger: 0.12,
+        ease: "back.out(1.4)",
+      }, "-=0.4")
+      // 6. Scroll indicator
+      .to(scrollInd, {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+      }, "-=0.2");
 
-      gsap.to([firstEl, lastEl], {
-        y: -4,
-        duration: 2.6,
+      // Ongoing: scroll line pulse
+      gsap.to(".hero-scroll-line", {
+        scaleY: 0.4,
+        transformOrigin: "top center",
+        duration: 1.2,
         ease: "sine.inOut",
         repeat: -1,
         yoyo: true,
-        delay: 1.1,
+        delay: 1.5,
+      });
+
+      // Ongoing: gentle float on name
+      gsap.to([firstEl, lastEl], {
+        y: -6,
+        duration: 3,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+        delay: 1.8,
       });
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
-  const splitText = (text: string) =>
-    text.split("").map((char, i) => (
-      <span key={i} className="letter inline-block">
-        {char === " " ? "\u00A0" : char}
-      </span>
-    ));
-
-  const splitName = (text: string) =>
-    text.split("").map((char, i) => (
-      <span
-        key={i}
-        className="name-letter inline-block origin-bottom will-change-[transform,opacity]"
-      >
-        {char === " " ? "\u00A0" : char}
-      </span>
-    ));
-
   return (
-    <section
-      ref={sectionRef}
-      id="hero"
-      className="pointer-events-none relative flex min-h-screen w-full items-center overflow-hidden"
-    >
-      <div className="mx-auto flex min-h-screen w-full max-w-[1180px] items-center justify-center px-[clamp(20px,5vw,60px)] py-24 text-left max-[757px]:px-[clamp(22px,6vw,60px)] max-[757px]:py-[120px]">
-        <div className="hero-content-wrapper pointer-events-auto mr-auto flex w-full max-w-[760px] flex-col items-start gap-7 text-left max-[757px]:mr-0 max-[757px]:items-center max-[757px]:text-center">
-          <div className="relative inline-block overflow-hidden">
-            <div
-              ref={titleShadowRef}
-              className="absolute left-0 top-0 z-1 translate-x-2 translate-y-2 text-white opacity-15"
-            >
-              <h1 className="hero-title font-['Space_Grotesk'] text-[clamp(3.2rem,6.4vw,6rem)] font-bold leading-[0.98] tracking-[-0.04em]">
-                {firstName}
-              </h1>
-              <h1 className="hero-title font-['Space_Grotesk'] text-[clamp(3.2rem,6.4vw,6rem)] font-bold leading-[0.98] tracking-[-0.04em]">
-                {lastName}
-              </h1>
-            </div>
+    <section ref={sectionRef} id="hero" className="hero-section">
+      {/* Curtain */}
+      <div ref={curtainRef} className="hero-curtain" />
 
-            <div>
-              <h1
-                ref={firstNameRef}
-                className="hero-title relative z-2 font-['Space_Grotesk'] text-[clamp(3.2rem,6.4vw,6rem)] font-bold leading-[0.98] tracking-[-0.04em] text-white [text-shadow:0_0_40px_rgba(255,255,255,0.35)]"
-              >
-                {splitName(firstName)}
-              </h1>
-              <h1
-                ref={lastNameRef}
-                className="hero-title relative z-2 font-['Space_Grotesk'] text-[clamp(3.2rem,6.4vw,6rem)] font-bold leading-[0.98] tracking-[-0.04em] text-white [text-shadow:0_0_40px_rgba(255,255,255,0.35)]"
-              >
-                {splitName(lastName)}
-              </h1>
+      {/* Ghost background name */}
+      <div className="hero-bg-name" aria-hidden>
+        <span>Aathavan</span>
+        <span>Thevakumar</span>
+      </div>
+
+      <div className="hero-inner">
+        {/* Left */}
+        <div className="hero-left">
+          <p className="hero-tagline">Développeur Full Stack</p>
+
+          <div>
+            <div className="hero-name-wrap">
+              <span ref={firstRef} className="hero-name">
+                {splitLetters(FIRST, "hero-letter")}
+              </span>
+            </div>
+            <div className="hero-name-wrap">
+              <span ref={lastRef} className="hero-name">
+                {splitLetters(LAST, "hero-letter")}
+              </span>
             </div>
           </div>
 
-          <h3
-            ref={subtitleRef}
-            className="relative text-[1.05rem] font-semibold uppercase tracking-[0.18em] text-white/70"
-          >
-            {splitText("Développeur Full Stack")}
-          </h3>
-
-          <p className="hero-lead max-w-[66ch] text-[1.1rem] leading-[1.7] text-white/80 max-[967px]:text-[1.05rem] max-[537px]:text-[1rem]">
-            Je conçois et développe des expériences web modernes, performantes
-            et accessibles. Ici, tu trouveras une sélection de projets (études &
-            perso) et mon parcours.
+          <p className="hero-desc">
+            Je conçois des expériences web modernes, performantes et accessibles.
+            Alternant chez Xelians, passionné de design et de code.
           </p>
 
-          <div className="hero-actions flex flex-wrap items-center gap-3 max-[757px]:justify-center">
-            <Link
-              to="/projects"
-              className="inline-flex items-center justify-center rounded-full border border-[rgba(255,180,50,0.22)] bg-[rgba(255,180,50,0.14)] px-[18px] py-3 font-semibold text-black backdrop-blur-[10px] transition-[background,border-color,transform] duration-200 hover:-translate-y-px hover:border-[rgba(255,180,50,0.3)] hover:bg-[rgba(255,180,50,0.18)] max-[450px]:w-full"
-            >
+          <div className="hero-actions">
+            <Link to="/projects" className="btn-pill btn-violet">
               Voir mes projets
             </Link>
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/10 px-[18px] py-3 font-semibold text-white backdrop-blur-[10px] transition-[background,border-color,transform] duration-200 hover:-translate-y-px hover:border-white/25 hover:bg-white/20 max-[450px]:w-full"
-            >
+            <a href="#contact" className="btn-pill btn-outline">
               Me contacter
             </a>
+            <a
+              href={monCV}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-pill btn-amber"
+            >
+              Mon CV
+            </a>
           </div>
+
+          <div className="hero-scroll-indicator">
+            <div className="hero-scroll-line" />
+            <span className="hero-scroll-label">Scroll</span>
+          </div>
+        </div>
+
+        {/* Right */}
+        <div className="hero-right">
+          <div className="hero-photo-wrap">
+            <div className="hero-photo-border" />
+            <img
+              src={aathavanPhoto}
+              alt="Aathavan Thevakumar"
+              className="hero-photo"
+            />
+          </div>
+
+          <FloatingCard
+            label="Poste actuel"
+            value="@ Xelians"
+            icon="💼"
+            className="hero-card-1"
+          />
+          <FloatingCard
+            label="Formation"
+            value="BUT MMI 2026"
+            icon="🎓"
+            className="hero-card-2"
+          />
+          <FloatingCard
+            label="Projets réalisés"
+            value="6 projets"
+            icon="🚀"
+            className="hero-card-3"
+          />
         </div>
       </div>
     </section>
