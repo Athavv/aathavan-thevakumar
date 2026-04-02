@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
 
 * {
   margin: 0;
@@ -6,8 +9,22 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg:           #07080f;
+  --surface-1:    #0f1020;
+  --surface-2:    #141528;
+  --accent-v:     #7B5CF0;
+  --accent-a:     #F5A623;
+  --fg:           #FFFFFF;
+  --fg-muted:     #6B7280;
+  --border:       rgba(255,255,255,0.08);
+  --max-w:        1200px;
+  --px:           clamp(24px, 6vw, 80px);
+}
+
 html {
   width: 100%;
+  scroll-behavior: auto; /* GSAP handles smooth scroll */
 }
 
 body {
@@ -15,20 +32,22 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
-  color: var(--fg, #ffffff);
-  background:
-    radial-gradient(
-      1200px 600px at 20% 10%,
-      rgba(120, 119, 198, 0.18) 0%,
-      rgba(0, 0, 0, 0) 60%
-    ),
-    radial-gradient(
-      900px 500px at 80% 30%,
-      rgba(255, 180, 50, 0.1) 0%,
-      rgba(0, 0, 0, 0) 55%
-    ),
-    linear-gradient(180deg, #07080f 0%, #0a0b14 55%, #07080f 100%);
-  font-family: "Inter", sans-serif;
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: "Inter", "Helvetica Neue", sans-serif;
+}
+
+/* Grain overlay via pseudo-element */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
 }
 
 #root {
@@ -36,33 +55,53 @@ body {
   min-height: 100vh;
 }
 
-.font-title {
-  font-family: "Fredoka One", cursive;
-}
-.font-body {
-  font-family: "Inter", sans-serif;
-}
-.font-display {
-  font-family: "Space Grotesk", sans-serif;
+/* Typography utilities */
+.font-clash  { font-family: "Clash Display", sans-serif; }
+.font-mono   { font-family: "JetBrains Mono", monospace; }
+
+/* Global section title (override per section as needed) */
+.section-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-a);
+  margin-bottom: 1rem;
 }
 
-.section-title {
-  font-size: 4rem;
-  line-height: 1.2;
-  font-family: "Fredoka One", cursive;
-  color: var(--fg, #ffffff);
-  margin-bottom: 4rem;
-  text-align: left;
+/* Reusable pill button */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease;
+  cursor: pointer;
+  border: none;
 }
+.btn-pill:hover { transform: translateY(-2px); }
 
-@media screen and (max-width: 768px) {
-  .section-title {
-    font-size: 3rem;
-  }
+.btn-violet {
+  background: var(--accent-v);
+  color: #fff;
 }
+.btn-violet:hover { background: #8b6cf5; }
 
-@media screen and (max-width: 640px) {
-  .section-title {
-    font-size: 2.5rem;
-  }
+.btn-outline {
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--border);
 }
+.btn-outline:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); }
+
+.btn-amber {
+  background: var(--accent-a);
+  color: #0a0a0a;
+  font-weight: 700;
+}
+.btn-amber:hover { background: #f7b847; }
