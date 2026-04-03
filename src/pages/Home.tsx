@@ -1,30 +1,25 @@
-import Hero from "../components/sections/Hero.tsx";
-import AboutMe from "../components/sections/AboutMe.tsx";
-import Skills from "../components/sections/Skills.tsx";
-import Projects from "../components/sections/Projects.tsx";
-import Experience from "../components/sections/Experience.tsx";
-import Contact from "../components/sections/Contact.tsx";
-import Header from "../components/layouts/Header.tsx";
-import ScrollBackdrop from "../components/layouts/ScrollBackdrop";
+import Header from "../components/layouts/Header";
+import Footer from "../components/layouts/Footer";
+import Hero from "../components/sections/Hero";
+import Projects from "../components/sections/Projects";
+import AboutMe from "../components/sections/AboutMe";
+import Skills from "../components/sections/Skills";
+import Experience from "../components/sections/Experience";
+import Contact from "../components/sections/Contact";
 
 export default function Home() {
   return (
     <>
       <Header />
-      <div className="relative h-[calc(100vh+420px)]">
-        <div className="sticky top-0 h-screen overflow-hidden">
-          <ScrollBackdrop>
-            <Hero />
-          </ScrollBackdrop>
-        </div>
-      </div>
-      <main className="relative z-1">
+      <Hero />
+      <main>
+        <Projects />
         <AboutMe />
         <Skills />
-        <Projects />
         <Experience />
         <Contact />
       </main>
+      <Footer />
     </>
   );
 }
