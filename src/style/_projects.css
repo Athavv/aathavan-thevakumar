@@ -1,104 +1,214 @@
 .projects-section {
   position: relative;
-  width: 100%;
-  height: 500vh;
-  font-family: 'Arial', sans-serif;
-  padding: 5rem clamp(24px, 7vw, 80px) 0;
+  background: var(--bg);
+  overflow: hidden;
 }
 
-.projects-sticky-container {
+.projects-header {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 80px var(--px) 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.projects-title {
+  font-family: "Clash Display", sans-serif;
+  font-weight: 700;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  color: var(--fg);
+}
+
+.projects-count {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  color: var(--fg-muted);
+  letter-spacing: 0.12em;
+  padding-bottom: 8px;
+  white-space: nowrap;
+}
+
+.projects-sticky {
   position: sticky;
   top: 0;
   height: 100vh;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.projects-inner {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-top: 50px;
 }
 
 .projects-viewport {
-  position: relative;
-  width: 100%;
-  flex: 1;
-  display: flex;
-  align-items: center;
+  overflow: visible;
+  padding: 0 var(--px);
 }
 
 .projects-track {
   display: flex;
-  align-items: center;
-  position: absolute;
-  left: 0;
+  align-items: flex-end;
+  gap: 0;
   will-change: transform;
 }
 
+/* Project cards */
 .project-card {
   flex-shrink: 0;
-  position: relative;
-  will-change: transform;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
   text-decoration: none;
+  display: block;
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--surface-1);
+  transform-origin: bottom center;
+  transition: border-color 0.3s;
+  will-change: transform;
 }
+
+.project-card:hover { border-color: rgba(255,255,255,0.14); }
 
 .project-card-inner {
+  position: relative;
   width: 100%;
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.12);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  
-  /* MOBILE : Padding réduit */
-  padding: 2rem 1rem 2rem; 
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  height: 100%;
 }
 
-/* MOBILE : Image plus petite */
 .project-image-container {
   width: 100%;
-  height: 15rem; /* Hauteur réduite pour mobile (avant 25rem) */
+  height: 100%;
   overflow: hidden;
-  border-radius: 1rem;
-  margin: 0 auto 1.5rem;
 }
 
 .project-image {
-  height: 100%;
   width: 100%;
+  height: 100%;
   object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
 }
 
-.project-title {
-  font-size: 2rem; 
+.project-card:hover .project-image {
+  transform: scale(1.04);
+}
+
+.project-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(7,8,15,0.92) 0%, rgba(7,8,15,0.2) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+.project-meta {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.project-title-card {
+  font-family: "Clash Display", sans-serif;
   font-weight: 700;
-  color: #111827;
-  text-align: left;
-  width: 100%;
-  margin: 0 auto;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: #fff;
   line-height: 1.1;
 }
 
-/* --- VERSION PC (Desktop) --- */
-@media (min-width: 768px) {
-  .project-card-inner {
-    padding: 5rem 2rem 8rem;
-  }
+.project-desc-card {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.4;
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.02em;
+}
 
-  .project-image-container {
-    height: 25rem; 
-    margin: 0 auto 2.5rem;
-  }
+.project-stacks {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 50%;
+}
 
-  .project-title {
-    font-size: 2.5rem; /* Grand titre sur PC */
-  }
+.project-stack-badge {
+  background: rgba(10,11,22,0.85);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  padding: 5px 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.project-stack-logo {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  filter: brightness(0) invert(1) !important;
+  opacity: 0.75;
+}
+
+.project-stack-name {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.62rem;
+  color: rgba(255,255,255,0.65);
+  letter-spacing: 0.04em;
+}
+
+.project-arrow {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 36px;
+  height: 36px;
+  background: rgba(123,92,240,0.2);
+  border: 1px solid rgba(123,92,240,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-v);
+  font-size: 1rem;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.25s, transform 0.25s;
+}
+
+.project-card:hover .project-arrow {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Radial glow behind carousel */
+.projects-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(123,92,240,0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (max-width: 768px) {
+  .projects-glow { display: none; }
 }
