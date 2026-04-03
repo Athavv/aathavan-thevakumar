@@ -1,137 +1,79 @@
-import type { CSSProperties } from "react";
+import { useLayoutEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import experienceData from "../../data/experience.json";
-import BlurIn from "../animations/BlurIn.tsx";
 
-type ExperiencePosition = {
-  title: string;
-  period: string;
-  description: string;
-};
+type ExperiencePosition = { title: string; period: string; description: string };
+type ExperienceItem = { id: number; company: string; logo: string; positions: ExperiencePosition[] };
 
-type ExperienceItem = {
-  id: number;
-  company: string;
-  logo: string;
-  positions: ExperiencePosition[];
-  image?: string;
-  imageCaption?: string;
-};
-
-type ExperienceData = {
-  experiences: ExperienceItem[];
-};
+const experiences = (experienceData as { experiences: ExperienceItem[] }).experiences;
 
 export default function Experience() {
-  const typedData = experienceData as ExperienceData;
-  const experiences = typedData.experiences || [];
-  const totalRoles = experiences.reduce(
-    (count, experience) => count + experience.positions.length,
-    0,
-  );
-  const latestExperience = experiences[0];
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const section = sectionRef.current;
+      if (!section) return;
+
+      gsap.fromTo(
+        section.querySelector(".experience-title"),
+        { y: 40, opacity: 0 },
+        {
+          y: 0, opacity: 1, duration: 0.8, ease: "power3.out",
+          scrollTrigger: { trigger: section, start: "top 82%", toggleActions: "play none none none" },
+        }
+      );
+
+      gsap.fromTo(
+        section.querySelectorAll(".experience-card"),
+        { y: 60, opacity: 0 },
+        {
+          y: 0, opacity: 1, duration: 0.75, stagger: 0.18, ease: "power2.out",
+          scrollTrigger: { trigger: section.querySelector(".experience-stack"), start: "top 85%", toggleActions: "play none none none" },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="experience" className="experience-section">
-      <div className="experience-shell">
-        <div className="experience-overview">
-          <BlurIn delay={0.2}>
-            <h2 className="section-title">Experiences</h2>
-          </BlurIn>
-
-          <p className="experience-intro">
-            Mes expériences s’articulent autour du développement front-end, du
-            back-end applicatif et de l’amélioration continue de produits web en
-            environnement agile.
-          </p>
-
-          <div className="experience-metrics">
-            <div className="experience-metric">
-              <span className="experience-metric-value">
-                {String(experiences.length).padStart(2, "0")}
-              </span>
-              <span className="experience-metric-label">expériences</span>
-            </div>
-            <div className="experience-metric">
-              <span className="experience-metric-value">
-                {String(totalRoles).padStart(2, "0")}
-              </span>
-              <span className="experience-metric-label">missions</span>
-            </div>
-            <div className="experience-metric">
-              <span className="experience-metric-value">
-                {latestExperience?.positions[0]?.title ?? "—"}
-              </span>
-              <span className="experience-metric-label">focus actuel</span>
-            </div>
-          </div>
-        </div>
+    <section ref={sectionRef} id="experience" className="experience-section">
+      <div className="experience-inner">
+        <h2 className="experience-title">Expériences</h2>
 
         <div className="experience-stack">
-          {experiences.map((experience, index) => (
-            <article
-              key={experience.id}
-              className="experience-card"
-              style={{ "--experience-index": index } as CSSProperties}
-            >
-              <div className="experience-card-top">
-                <div className="experience-card-heading">
-                  <span className="experience-card-index">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <h3 className="experience-company">{experience.company}</h3>
-                    <p className="experience-company-caption">
-                      {experience.positions
-                        .map((position) => position.period)
-                        .join(" · ")}
-                    </p>
-                  </div>
-                </div>
+          {experiences.map((exp, index) => (
+            <article key={exp.id} className="experience-card">
+              <span className="experience-card-num" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
 
+              <div className="experience-card-header">
+                <h3 className="experience-company">{exp.company}</h3>
                 <img
-                  src={experience.logo}
-                  alt={experience.company}
+                  src={exp.logo}
+                  alt={exp.company}
                   className="experience-logo"
-                  onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).style.display =
-                      "none";
-                  }}
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                 />
               </div>
 
               <div className="experience-roles">
-                {experience.positions.map((position, positionIndex) => (
-                  <div key={positionIndex} className="experience-role">
+                {exp.positions.map((pos, pi) => (
+                  <div key={pi} className="experience-role">
                     <div className="experience-role-marker" />
                     <div className="experience-role-body">
                       <div className="experience-role-header">
-                        <h4 className="experience-role-title">
-                          {position.title}
-                        </h4>
-                        <span className="experience-role-period">
-                          {position.period}
-                        </span>
+                        <h4 className="experience-role-title">{pos.title}</h4>
+                        <span className="experience-role-period">{pos.period}</span>
                       </div>
-                      <p className="experience-role-description">
-                        {position.description}
-                      </p>
+                      <p className="experience-role-description">{pos.description}</p>
                     </div>
                   </div>
                 ))}
               </div>
-
-              {experience.image && (
-                <div className="experience-visual">
-                  <div className="experience-visual-frame">
-                    <img src={experience.image} alt={experience.company} />
-                    {experience.imageCaption && (
-                      <div className="experience-visual-caption">
-                        {experience.imageCaption}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
             </article>
           ))}
         </div>
