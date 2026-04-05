@@ -1,19 +1,23 @@
 {
   "frontend": [
-    { "name": "Angular",    "logo": "/logos/angular.svg" },
-    { "name": "JavaScript", "logo": "/logos/javascript.svg" },
-    { "name": "HTML",       "logo": "/logos/html.svg" },
-    { "name": "CSS",        "logo": "/logos/css.svg" },
-    { "name": "Tailwind",   "logo": "/logos/tailwind.svg" },
-    { "name": "Bootstrap",  "logo": "/logos/bootstrap.svg" },
-    { "name": "ChartJS",    "logo": "/logos/chartjs.svg" }
+    { "name": "Angular",      "logo": "/logos/angular.svg" },
+    { "name": "TypeScript",   "logo": "/logos/typescript.svg" },
+    { "name": "JavaScript",   "logo": "/logos/javascript.svg" },
+    { "name": "HTML",         "logo": "/logos/html.svg" },
+    { "name": "CSS",          "logo": "/logos/css.svg" },
+    { "name": "Tailwind",     "logo": "/logos/tailwind.svg" },
+    { "name": "Bootstrap",    "logo": "/logos/bootstrap.svg" },
+    { "name": "ChartJS",      "logo": "/logos/chartjs.svg" }
   ],
   "tools": [
-    { "name": "PHP",        "logo": "/logos/php.svg" },
-    { "name": "MySQL",      "logo": "/logos/mysql.svg" },
-    { "name": "Figma",      "logo": "/logos/figma.svg" },
-    { "name": "WordPress",  "logo": "/logos/wordpress.svg" },
-    { "name": "GitHub",     "logo": "/logos/github.svg" }
+    { "name": "PHP",          "logo": "/logos/php.svg" },
+    { "name": "Node.js",      "logo": "/logos/nodejs.svg" },
+    { "name": "MySQL",        "logo": "/logos/mysql.svg" },
+    { "name": "Git",          "logo": "/logos/git.svg" },
+    { "name": "GitHub",       "logo": "/logos/github.svg" },
+    { "name": "Playwright",   "logo": "/logos/playwright.svg" },
+    { "name": "Figma",        "logo": "/logos/figma.svg" },
+    { "name": "WordPress",    "logo": "/logos/wordpress.svg" }
   ],
   "stats": [
     { "value": 3,  "suffix": " ANS", "label": "d'études" },

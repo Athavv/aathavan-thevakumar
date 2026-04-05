@@ -10,14 +10,14 @@
 }
 
 :root {
-  --bg:           #07080f;
-  --surface-1:    #0f1020;
-  --surface-2:    #141528;
-  --accent-v:     #7B5CF0;
-  --accent-a:     #F5A623;
-  --fg:           #FFFFFF;
-  --fg-muted:     #6B7280;
-  --border:       rgba(255,255,255,0.08);
+  --bg:           #f4f2ec;
+  --surface-1:    #ede9e0;
+  --surface-2:    #e4e0d6;
+  --accent-v:     #6B48E8;
+  --accent-a:     #E8920F;
+  --fg:           #0d0c0a;
+  --fg-muted:     #6b6560;
+  --border:       rgba(13,12,10,0.1);
   --max-w:        1200px;
   --px:           clamp(24px, 6vw, 80px);
 }
@@ -32,10 +32,15 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: var(--bg);
+  background-color: #07080f; /* starts dark; sections have their own bg */
   color: var(--fg);
   font-family: "Inter", "Helvetica Neue", sans-serif;
 }
+
+/* Scrollbar styling for warm white theme */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--surface-1); }
+::-webkit-scrollbar-thumb { background: rgba(13,12,10,0.2); border-radius: 3px; }
 
 /* Grain overlay via pseudo-element */
 body::after {
@@ -97,7 +102,7 @@ body::after {
   color: var(--fg);
   border: 1px solid var(--border);
 }
-.btn-outline:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); }
+.btn-outline:hover { border-color: rgba(13,12,10,0.25); background: rgba(13,12,10,0.04); }
 
 .btn-amber {
   background: var(--accent-a);

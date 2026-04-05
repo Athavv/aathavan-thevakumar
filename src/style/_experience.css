@@ -1,5 +1,5 @@
 .experience-section {
-  padding: 120px var(--px);
+  padding: 120px var(--px) 80px;
   background: var(--bg);
 }
 
@@ -8,10 +8,30 @@
   margin: 0 auto;
 }
 
-.experience-title {
+.exp-eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-a);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.exp-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--accent-a);
+}
+
+.exp-heading {
   font-family: "Clash Display", sans-serif;
   font-weight: 700;
-  font-size: clamp(2.8rem, 5vw, 5rem);
+  font-size: clamp(3rem, 7vw, 6.5rem);
   text-transform: uppercase;
   letter-spacing: -0.04em;
   line-height: 0.9;
@@ -19,119 +39,144 @@
   margin-bottom: 72px;
 }
 
-.experience-stack {
+/* List */
+.exp-list {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  max-width: 860px;
 }
 
-.experience-card {
-  position: relative;
-  background: var(--surface-1);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 36px 40px;
-  overflow: hidden;
-  transition: border-color 0.3s;
-}
-
-.experience-card:hover {
-  border-color: rgba(123,92,240,0.2);
-}
-
-.experience-card-num {
-  position: absolute;
-  top: -10px;
-  right: 24px;
-  font-family: "Clash Display", sans-serif;
-  font-weight: 700;
-  font-size: 7rem;
-  color: rgba(255,255,255,0.03);
-  line-height: 1;
-  pointer-events: none;
+/* Each row */
+.exp-row {
+  border-top: 1px solid var(--border);
+  cursor: pointer;
   user-select: none;
-  letter-spacing: -0.04em;
+  transition: background 0.2s;
 }
 
-.experience-card-header {
-  display: flex;
+.exp-row:last-child { border-bottom: 1px solid var(--border); }
+
+.exp-row:hover { background: var(--surface-1); }
+.exp-row--open { background: var(--surface-1); }
+
+.exp-row-top {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 28px;
+  gap: 24px;
+  padding: 28px 20px;
 }
 
-.experience-company {
+/* Big index number */
+.exp-row-num {
   font-family: "Clash Display", sans-serif;
   font-weight: 700;
-  font-size: 1.4rem;
-  text-transform: uppercase;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  letter-spacing: -0.04em;
   color: var(--fg);
+  opacity: 0.18;
+  line-height: 1;
+  transition: opacity 0.2s;
 }
 
-.experience-logo {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-  filter: brightness(0) invert(1) !important;
-  opacity: 0.7;
-  flex-shrink: 0;
-}
+.exp-row--open .exp-row-num,
+.exp-row:hover .exp-row-num { opacity: 0.6; }
 
-.experience-roles {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.experience-role {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-}
-
-.experience-role-marker {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent-v);
-  margin-top: 7px;
-  flex-shrink: 0;
-}
-
-.experience-role-body {
+/* Center */
+.exp-row-main {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.experience-role-header {
+.exp-row-header {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  align-items: baseline;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
-.experience-role-title {
+.exp-row-company {
   font-family: "Clash Display", sans-serif;
-  font-weight: 600;
-  font-size: 0.95rem;
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2.2vw, 1.55rem);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: -0.02em;
   color: var(--fg);
 }
 
-.experience-role-period {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.7rem;
-  color: var(--accent-a);
-  letter-spacing: 0.08em;
+.exp-row-separator {
+  color: var(--fg-muted);
+  font-size: 1rem;
 }
 
-.experience-role-description {
-  font-size: 0.9rem;
-  line-height: 1.65;
+.exp-row-title {
+  font-family: "Clash Display", sans-serif;
+  font-weight: 500;
+  font-size: clamp(0.95rem, 1.6vw, 1.2rem);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--accent-v);
+}
+
+.exp-row-period {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
   color: var(--fg-muted);
+}
+
+/* Right */
+.exp-row-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.exp-row-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  opacity: 0.7;
+}
+
+.exp-row-chevron {
+  font-size: 1.6rem;
+  font-family: "Clash Display", sans-serif;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--fg-muted);
+  transition: color 0.2s;
+  flex-shrink: 0;
+}
+
+.exp-row-chevron--open {
+  color: var(--accent-v);
+}
+
+/* Expandable description */
+.exp-row-desc-wrap {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+              padding 0.3s ease;
+  padding: 0 20px 0 calc(56px + 24px + 20px);
+}
+
+.exp-row-desc-wrap--open {
+  max-height: 300px;
+  padding: 0 20px 28px calc(56px + 24px + 20px);
+}
+
+.exp-row-desc {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--fg-muted);
+  max-width: 72ch;
+}
+
+@media (max-width: 640px) {
+  .exp-row-top { grid-template-columns: 40px 1fr auto; gap: 14px; padding: 20px 12px; }
+  .exp-row-desc-wrap--open { padding-left: calc(40px + 14px + 12px); }
+  .exp-row-logo { width: 28px; height: 28px; }
 }

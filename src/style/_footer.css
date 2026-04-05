@@ -7,6 +7,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
+  background: var(--bg);
 }
 
 .site-footer__name {
@@ -15,16 +16,18 @@
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
+  color: var(--fg-muted);
 }
 
 .site-footer__credit {
   font-family: "JetBrains Mono", monospace;
   font-size: 0.7rem;
-  color: rgba(255,255,255,0.25);
+  color: var(--fg-muted);
+  opacity: 0.6;
   letter-spacing: 0.06em;
 }
 
 .site-footer__credit span {
   color: var(--accent-v);
+  opacity: 1;
 }

@@ -1,7 +1,7 @@
 .projects-section {
   position: relative;
   background: var(--bg);
-  overflow: hidden;
+  /* No overflow:hidden — would break position:sticky inside */
 }
 
 .projects-header {
@@ -34,27 +34,6 @@
   white-space: nowrap;
 }
 
-.projects-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.projects-viewport {
-  overflow: visible;
-  padding: 0 var(--px);
-}
-
-.projects-track {
-  display: flex;
-  align-items: flex-end;
-  gap: 0;
-  will-change: transform;
-}
 
 /* Project cards */
 .project-card {
@@ -160,8 +139,8 @@
   width: 14px;
   height: 14px;
   object-fit: contain;
-  filter: brightness(0) invert(1) !important;
-  opacity: 0.75;
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
 }
 
 .project-stack-name {
@@ -190,9 +169,21 @@
   transition: opacity 0.25s, transform 0.25s;
 }
 
-.project-card:hover .project-arrow {
+.project-card:hover .project-arrow,
+.project-arrow.project-arrow-visible {
   opacity: 1;
   transform: scale(1);
+}
+
+/* Arc carousel card — pointer events only active, transition for will-change */
+.arc-card {
+  border-radius: 28px;
+  transition: box-shadow 0.3s, border-color 0.3s;
+  will-change: transform, opacity;
+}
+
+.arc-card:hover {
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6);
 }
 
 /* Radial glow behind carousel */
@@ -201,12 +192,36 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 600px;
-  height: 600px;
+  width: 700px;
+  height: 700px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(123,92,240,0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(107,72,232,0.05) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
+}
+
+/* Progress dots */
+.projects-dots {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 60;
+}
+
+.projects-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(13,12,10,0.18);
+  transition: background 0.3s, transform 0.3s;
+}
+
+.projects-dot--active {
+  background: var(--accent-v);
+  transform: scale(1.5);
 }
 
 @media (max-width: 768px) {

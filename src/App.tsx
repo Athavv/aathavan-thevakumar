@@ -1,16 +1,23 @@
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import IntroSunrise from "./components/IntroSunrise";
 import Home from "./pages/Home.tsx";
 import ProjectDetail from "./pages/ProjectDetail.tsx";
 import ProjectsPage from "./pages/ProjectsPage.tsx";
 
 export default function App() {
+  const [doneIntro, setDoneIntro] = useState(false);
+
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="/project/:slug" element={<ProjectDetail />} />
-      </Routes>
+      {!doneIntro && <IntroSunrise onFinish={() => setDoneIntro(true)} />}
+      {doneIntro && (
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/project/:slug" element={<ProjectDetail />} />
+        </Routes>
+      )}
     </Router>
   );
 }

@@ -1,7 +1,10 @@
 /* Portfolio — section styles */
+@import "./_introSunrise.css";
+@import "./_scrollBackdrop.css";
 @import "./_header.css";
 @import "./_hero.css";
 @import "./_projects.css";
+@import "./_projectsPage.css";
 @import "./_aboutMe.css";
 @import "./_skills.css";
 @import "./_experience.css";

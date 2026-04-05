@@ -1,0 +1,283 @@
+.sb-root {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.sb-base {
+  position: absolute;
+  inset: 0;
+  background: var(--bg, #f4f2ec);
+  overflow: hidden;
+}
+
+.sb-dark {
+  position: absolute;
+  inset: 0;
+  background: #05060a;
+  clip-path: inset(0% 0% 0% 0% round 0px);
+  will-change: clip-path;
+  overflow: hidden;
+}
+
+.sb-content {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.sb-sun {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  width: 54px;
+  height: 54px;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 30% 30%, #fff7c8 0%, #ffdd55 45%, #ff9900 100%);
+  box-shadow:
+    0 0 20px rgba(255, 180, 50, 0.35),
+    0 0 60px rgba(255, 180, 50, 0.18);
+  opacity: calc(var(--backdrop-t, 0) * 1);
+  transform: scale(calc(0.9 + var(--backdrop-t, 0) * 0.15));
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* Gradient at bottom of white base — blends into cream --bg */
+.sb-base-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 220px;
+  background: linear-gradient(to bottom, transparent, var(--bg, #f4f2ec));
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Black stars that overflow from white area down onto cream section */
+.sb-star-overflow {
+  position: absolute;
+  bottom: -60px;
+  left: 0;
+  right: 0;
+  height: 300px;
+  pointer-events: none;
+  z-index: 2;
+  will-change: opacity;
+}
+
+/* ——— Star badges ——— */
+
+.sb-star-badge {
+  position: absolute;
+  background: rgba(5, 6, 10, 0.90);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 20px;
+  padding: 16px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 168px;
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  pointer-events: none;
+  z-index: 30;
+  will-change: transform, opacity;
+  overflow: hidden;
+}
+
+/* Golden/violet top accent line */
+.sb-star-top-line {
+  position: absolute;
+  top: 0; left: 12px; right: 12px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(232, 146, 15, 0.7), transparent);
+  border-radius: 9999px;
+}
+
+.sb-star-top-line--violet {
+  background: linear-gradient(90deg, transparent, rgba(107, 72, 232, 0.7), transparent);
+}
+
+.sb-star-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sb-sparkle {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  animation: sparkle-spin 4s linear infinite;
+}
+
+@keyframes sparkle-spin {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.25); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.sb-star-eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.sb-star-value {
+  font-family: "Clash Display", sans-serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.sb-star-sub {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* Live dot */
+.sb-star-footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.sb-star-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.7);
+  animation: live-pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 8px rgba(74, 222, 128, 0.7); }
+  50%       { opacity: 0.5; transform: scale(0.7); box-shadow: 0 0 4px rgba(74, 222, 128, 0.3); }
+}
+
+.sb-star-live-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4ade80;
+  opacity: 0.8;
+}
+
+/* Progress bar (formation) */
+.sb-star-progress {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.sb-star-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6B48E8, #a78bfa);
+  border-radius: 9999px;
+  animation: progress-fill 1.2s ease-out 1.2s both;
+  transform-origin: left;
+}
+
+@keyframes progress-fill {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* ——— Projects badge (wider) ——— */
+.sb-star-badge--projects {
+  min-width: 240px;
+  padding: 14px 16px;
+}
+
+.sb-proj-inner {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-top: 2px;
+}
+
+.sb-proj-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.sb-proj-count {
+  font-family: "Clash Display", sans-serif;
+  font-weight: 700;
+  font-size: 2.8rem;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: #fff;
+}
+
+.sb-proj-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  line-height: 1.4;
+}
+
+/* Cycling thumbnail */
+.sb-proj-thumb-wrap {
+  flex: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 80px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.04);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.sb-proj-thumb-wrap--in  { opacity: 1; transform: scale(1); }
+.sb-proj-thumb-wrap--out { opacity: 0; transform: scale(0.96); }
+
+.sb-proj-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sb-proj-name {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(5, 6, 10, 0.9));
+  padding: 12px 6px 5px;
+  font-family: "Clash Display", sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sb-dark { clip-path: inset(0% 0% 0% 0% round 0px) !important; }
+  .sb-sparkle { animation: none; }
+}
